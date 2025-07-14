@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fine Art Syllabus - Mrs. Watts</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .tabs { display: flex; background: #2c3e50; overflow-x: auto; }
+    .tabs button { background: #34495e; color: white; border: none; padding: 14px 20px; cursor: pointer; }
+    .tabs button:hover, .tabs button.active { background-color: #1abc9c; }
+    .tabcontent { display: none; padding: 20px; }
+    .tabcontent.active { display: block; }
+    h2 { color: #2c3e50; }
+    .quiz input { margin: 5px 0; }
+  </style>
+</head>
+<body>
+
+<div class="tabs" id="tabs"></div>
+
+<div id="content">
+  <!-- Tab Contents Will Be Injected Here -->
+</div>
+
+<script>
+  const tabsData = [
+    { title: "About Mrs. Watts", content: `<h2>About Mrs. Watts</h2><p>Hello and welcome... I am passionate about all forms of art including ceramics, photography, watercolor, fiber arts, and more!</p>` },
+    { title: "Course Overview", content: `<h2>About the Course</h2><p>This rigorous and fast-paced art course... inspired by historical movements.</p>` },
+    { title: "Daily Responsibilities", content: `<h2>Daily Student Responsibilities</h2><ul><li>Check announcements, calendar, email</li><li>Submit assignments</li><li>Complete lessons</li></ul>` },
+    { title: "Attendance Policy", content: `<h2>Attendance Policy</h2><p>Attendance is mandatory... See the handbook for full details.</p>` },
+    { title: "Grading & Late Work", content: `<h2>Grading Policy</h2><p>Work must be submitted by due dates. No late work accepted after 2 weeks past due. See syllabus for full details.</p>` },
+    { title: "Plagiarism & AI", content: `<h2>Academic Integrity and AI Use</h2><p>All work must be original. AI may only be used with permission and not to complete work.</p>` },
+    { title: "Extension Request", content: `<h2>Extension Request</h2><p>Request an extension BEFORE the due date. Use the form in the syllabus.</p>` },
+    { title: "Scavenger Hunt Quiz", content: `<h2>Scavenger Hunt Quiz</h2><div class="quiz">
+      <p>1. Who is your teacher?</p><input type="text" placeholder="Your answer" /><br/>
+      <p>2. What is required to succeed in this course?</p><input type="text" placeholder="Your answer" /><br/>
+      <p>3. What supplies do you need?</p><input type="text" placeholder="Your answer" /><br/>
+    </div>` }
+  ];
+
+  const tabContainer = document.getElementById("tabs");
+  const contentContainer = document.getElementById("content");
+
+  tabsData.forEach((tab, index) => {
+    const btn = document.createElement("button");
+    btn.textContent = tab.title;
+    btn.onclick = () => setActiveTab(index);
+    tabContainer.appendChild(btn);
+
+    const div = document.createElement("div");
+    div.className = "tabcontent";
+    div.innerHTML = tab.content;
+    contentContainer.appendChild(div);
+  });
+
+  function setActiveTab(index) {
+    document.querySelectorAll(".tabs button").forEach((btn, i) => {
+      btn.classList.toggle("active", i === index);
+    });
+    document.querySelectorAll(".tabcontent").forEach((tab, i) => {
+      tab.classList.toggle("active", i === index);
+    });
+  }
+
+  setActiveTab(0); // Default to first tab
+</script>
+
+</body>
+</html>
