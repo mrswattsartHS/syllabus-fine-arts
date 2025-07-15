@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fine Art Syllabus - Mrs. Watts</title>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;700&display=swap" rel="stylesheet">
   <script>
     function showTab(tabId, event) {
       if (event) event.preventDefault();
@@ -16,13 +16,25 @@
   </script>
   <style>
     body {
-      font-family: 'Caveat', cursive;
+      font-family: 'Zilla Slab', serif;
       margin: 0;
       padding: 0;
     }
     section { display: none; }
     section.active { display: block; }
     nav a.active { background: #667eea; color: white; }
+    nav {
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      background-color: #eee;
+    }
+    nav a {
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #333;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
