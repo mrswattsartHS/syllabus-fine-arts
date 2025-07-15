@@ -761,4 +761,65 @@
         feedback = `📚 Good effort! You scored ${score} out of ${total}. Please review the syllabus for the questions you missed.`;
         feedbackDiv.classList.add('partial');
       } else {
-        feedback
+        feedback = `📖 You scored ${score} out of ${total}. Please review the syllabus carefully and try again.`;
+        feedbackDiv.classList.add('partial');
+      }
+      
+      feedbackDiv.textContent = feedback;
+      feedbackDiv.classList.add('show');
+    }
+
+    // Add event listeners to navigation links
+    function initializeTabs() {
+      document.querySelectorAll('nav a[data-tab]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault(); // Prevent default link behavior
+          const tabId = this.getAttribute('data-tab');
+          showTab(tabId);
+        });
+      });
+    }
+
+    // Form functions
+    function printForm() {
+      window.print();
+    }
+
+    function saveAsWord() {
+      const form = document.getElementById('extensionForm');
+      const formData = new FormData(form);
+      let content = 'Student Extension Request Form\n\n';
+      
+      for (let [key, value] of formData.entries()) {
+        if (key !== 'help' && key !== 'complete') {
+          content += `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}\n`;
+        }
+      }
+      
+      if (formData.get('help')) content += 'Help needed: Yes\n';
+      if (formData.get('complete')) content += 'Can complete independently: Yes\n';
+      
+      const blob = new Blob([content], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'extension_request.doc';
+      a.click();
+    }
+
+    function saveAsPDF() {
+      window.print();
+    }
+
+    // Initialize everything when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      createParticles();
+      initializeTabs(); // This will make the tabs work!
+      
+      // Set today's date for extension form
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('ext-date').value = today;
+    });
+  </script>
+</body>
+</html>
