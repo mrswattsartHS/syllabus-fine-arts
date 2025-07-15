@@ -4,15 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fine Art Syllabus - Mrs. Watts</title>
-  <!-- Styles and head content omitted for brevity -->
+  <script>
+    function showTab(tabId, event) {
+      if (event) event.preventDefault();
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      if (event) event.target.classList.add('active');
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+    }
+  </script>
+  <style>
+    section { display: none; }
+    section.active { display: block; }
+    nav a.active { background: #667eea; color: white; }
+  </style>
 </head>
 <body>
-  <!-- Header and nav omitted for brevity -->
+  <nav>
+    <a href="#" onclick="showTab('resources', event)" class="active">Resources</a>
+    <!-- Add other nav items here -->
+  </nav>
   <div class="content-container loading">
 
-    <!-- Other sections... -->
-
-    <section id="resources">
+    <section id="resources" class="active">
       <h2>Resources</h2>
       <p>Click any resource below to access the presentation with all course materials.</p>
 
@@ -77,8 +91,6 @@
         allowfullscreen>
       </iframe>
     </section>
-
-    <!-- Other sections... -->
 
   </div>
 </body>
