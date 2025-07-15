@@ -6,11 +6,100 @@
   <title>Fine Art Syllabus - Mrs. Watts</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* all previous CSS styles remain unchanged */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      overflow-x: hidden;
+    }
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: float 6s infinite ease-in-out;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 0.3; }
+    }
+    header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    nav {
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 20px;
+      border-radius: 25px;
+      background: transparent;
+      cursor: pointer;
+    }
+    nav a.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+    .content-container {
+      background: rgba(255, 255, 255, 0.95);
+      margin: 40px 20px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+    }
+    section {
+      display: none;
+      padding: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    section.active {
+      display: block;
+    }
   </style>
 </head>
 <body>
-  <!-- Animated background particles -->
   <div class="particles" id="particles"></div>
 
   <header class="loading">
@@ -19,19 +108,54 @@
   </header>
 
   <nav class="loading">
-    <a onclick="showTab('about', event)" class="active">Welcome</a>
-    <a onclick="showTab('contact', event)">Contact</a>
-    <a onclick="showTab('course', event)">Course Info</a>
-    <a onclick="showTab('daily', event)">Daily Tasks</a>
-    <a onclick="showTab('grading', event)">Grading Policy</a>
-    <a onclick="showTab('plagiarism', event)">Academic Integrity</a>
-    <a onclick="showTab('resources', event)">Resources</a>
-    <a onclick="showTab('extension', event)">Extension Request</a>
-    <a onclick="showTab('quiz', event)">Quiz</a>
+    <a href="#" onclick="showTab('about', event)" class="active">Welcome</a>
+    <a href="#" onclick="showTab('contact', event)">Contact</a>
+    <a href="#" onclick="showTab('course', event)">Course Info</a>
+    <a href="#" onclick="showTab('daily', event)">Daily Tasks</a>
+    <a href="#" onclick="showTab('grading', event)">Grading Policy</a>
+    <a href="#" onclick="showTab('plagiarism', event)">Academic Integrity</a>
+    <a href="#" onclick="showTab('resources', event)">Resources</a>
+    <a href="#" onclick="showTab('extension', event)">Extension Request</a>
+    <a href="#" onclick="showTab('quiz', event)">Quiz</a>
   </nav>
 
   <div class="content-container loading">
-    <!-- Existing sections remain here -->
+    <section id="about" class="active">
+      <h2>Welcome to Your Art Course!</h2>
+      <p>This is the welcome section. Add more content here.</p>
+    </section>
+    <section id="contact">
+      <h2>Contact Information</h2>
+      <p>Email: bwatts@agoracyber.net</p>
+    </section>
+    <section id="course">
+      <h2>Course Info</h2>
+      <p>Details about the course structure.</p>
+    </section>
+    <section id="daily">
+      <h2>Daily Tasks</h2>
+      <p>Checklist for daily expectations.</p>
+    </section>
+    <section id="grading">
+      <h2>Grading Policy</h2>
+      <p>Late policy and grading expectations.</p>
+    </section>
+    <section id="plagiarism">
+      <h2>Academic Integrity</h2>
+      <p>Plagiarism policy and AI use guidelines.</p>
+    </section>
+    <section id="resources">
+      <h2>Resources</h2>
+      <p>Helpful links and materials for the course.</p>
+    </section>
+    <section id="extension">
+      <h2>Extension Request</h2>
+      <p>Submit your extension request here.</p>
+    </section>
+    <section id="quiz">
+      <h2>Syllabus Quiz</h2>
+      <p>Answer the questions to test your knowledge.</p>
+    </section>
   </div>
 
   <script>
@@ -57,7 +181,9 @@
       document.getElementById(tabId).classList.add('active');
     }
 
-    // all remaining script code remains unchanged
+    window.addEventListener('load', function () {
+      createParticles();
+    });
   </script>
 </body>
 </html>
