@@ -299,46 +299,18 @@
       margin: 20px 0;
     }
 
-    .quiz-question {
-      margin-bottom: 25px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 10px;
-      backdrop-filter: blur(5px);
-    }
-
-    .quiz-question label {
-      display: block;
-      margin-bottom: 10px;
-      font-weight: 600;
-      color: #2d3436;
-    }
-
     .quiz input {
-      width: 100%;
+      margin-bottom: 15px;
       padding: 12px 15px;
       border: 2px solid transparent;
       border-radius: 8px;
       font-size: 1rem;
       transition: all 0.3s ease;
-      background: rgba(255, 255, 255, 0.8);
     }
 
     .quiz input:focus {
       border-color: #667eea;
       box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
-      outline: none;
-      background: white;
-    }
-
-    .quiz input.correct {
-      border-color: #00b894;
-      background: rgba(0, 184, 148, 0.1);
-    }
-
-    .quiz input.incorrect {
-      border-color: #e17055;
-      background: rgba(225, 112, 85, 0.1);
     }
 
     .quiz button {
@@ -351,22 +323,16 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin-top: 20px;
     }
 
-    .quiz button:hover:not(:disabled) {
+    .quiz button:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
     }
 
-    .quiz button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
     #quiz-feedback {
       margin-top: 20px;
-      padding: 20px;
+      padding: 15px;
       border-radius: 10px;
       font-weight: 600;
       text-align: center;
@@ -383,56 +349,11 @@
     #quiz-feedback.success {
       background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
       color: #2d5a27;
-      border: 2px solid #00b894;
     }
 
     #quiz-feedback.partial {
       background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
       color: #8b4513;
-      border: 2px solid #fdcb6e;
-    }
-
-    #quiz-feedback.fail {
-      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-      color: #d63031;
-      border: 2px solid #e17055;
-    }
-
-    .quiz-results {
-      margin-top: 15px;
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.5);
-      border-radius: 8px;
-      font-size: 0.9rem;
-    }
-
-    .quiz-results h4 {
-      margin-bottom: 10px;
-      color: #2d3436;
-    }
-
-    .quiz-results ul {
-      margin-left: 0;
-      list-style: none;
-    }
-
-    .quiz-results li {
-      padding: 5px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .quiz-results li:last-child {
-      border-bottom: none;
-    }
-
-    .quiz-results .correct-answer {
-      color: #00b894;
-      font-weight: 600;
-    }
-
-    .quiz-results .incorrect-answer {
-      color: #e17055;
-      font-weight: 600;
     }
 
     /* Contact info styling */
@@ -603,7 +524,7 @@
           <li><strong>📞 Phone:</strong> 610-230-3245</li>
           <li><strong>📅 Meetings:</strong> By appointment</li>
           <li><strong>💬 Course Messaging System:</strong> Email preferred</li>
-          <li><strong>🎓 Course Name:</strong> ART010A_FineArt_4</li>
+          <li><strong>🎓 Course Name (just words):</strong> ART010A_FineArt_4</li>
         </ul>
       </div>
       <p>I'm here to help you succeed! Don't hesitate to reach out if you have questions or need clarification.</p>
@@ -670,64 +591,61 @@
     </section>
 
     <section id="resources">
-      <section id="resources">
-  <h2>Resources</h2>
-  <p>Click any resource below to access the presentation with all course materials.</p>
+      <h2>Resources</h2>
+      <p>Here are helpful resources and worksheets for our art course. Download these materials to help with your assignments and projects.</p>
+      
+      <h3>🎨 Artist Statement Worksheets</h3>
+      <div class="resource-grid">
+        <div class="resource-item">
+          <h4>Artist Statement Worksheets</h4>
+          <p>Templates and guides for writing effective artist statements</p>
+        </div>
+      </div>
 
-  <h3>🎨 Artist Statement Worksheets</h3>
-  <div class="resource-grid">
-    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
-      <h4>Artist Statement Worksheets</h4>
-      <p>Templates and guides for writing effective artist statements</p>
-    </a>
-  </div>
+      <h3>📚 Vocabulary & Reference Materials</h3>
+      <div class="resource-grid">
+        <div class="resource-item">
+          <h4>Elements of Art Vocabulary List</h4>
+          <p>Comprehensive list of essential art elements terminology</p>
+        </div>
+        <div class="resource-item">
+          <h4>Principles of Design Vocabulary List</h4>
+          <p>Key principles that guide artistic composition and design</p>
+        </div>
+        <div class="resource-item">
+          <h4>ART VOCAB Binder</h4>
+          <p>Complete vocabulary reference for art terms and concepts</p>
+        </div>
+      </div>
 
-  <h3>📚 Vocabulary & Reference Materials</h3>
-  <div class="resource-grid">
-    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
-      <h4>Elements of Art Vocabulary List</h4>
-      <p>Comprehensive list of essential art elements terminology</p>
-    </a>
-    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
-      <h4>Principles of Design Vocabulary List</h4>
-      <p>Key principles that guide artistic composition and design</p>
-    </a>
-    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
-      <h4>ART VOCAB Binder</h4>
-      <p>Complete vocabulary reference for art terms and concepts</p>
-    </a>
-  </div>
+      <h3>🌈 Color Theory Resources</h3>
+      <div class="resource-grid">
+        <div class="resource-item">
+          <h4>Color Worksheet</h4>
+          <p>Practice exercises for understanding color relationships</p>
+        </div>
+        <div class="resource-item">
+          <h4>Color Theory Cheat Sheet for Beginners</h4>
+          <p>Quick reference guide for color mixing and theory basics</p>
+        </div>
+      </div>
 
-  <h3>🌈 Color Theory Resources</h3>
-  <div class="resource-grid">
-    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
-      <h4>Color Worksheet</h4>
-      <p>Practice exercises for understanding color relationships</p>
-    </a>
-    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
-      <h4>Color Theory Cheat Sheet for Beginners</h4>
-      <p>Quick reference guide for color mixing and theory basics</p>
-    </a>
-  </div>
-
-  <h3>🔍 Art Criticism Resources</h3>
-  <div class="resource-grid">
-    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
-      <h4>The Art Critiquing Process - 4 Steps</h4>
-      <p>Step-by-step guide to analyzing and critiquing artwork</p>
-    </a>
-    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
-      <h4>Art in Focus - 4 Steps Art Criticism</h4>
-      <p>Detailed framework for structured art analysis</p>
-    </a>
-    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
-      <h4>Art in Focus - Elements and Principles</h4>
-      <p>Comprehensive guide to visual elements and design principles</p>
-    </a>
-  </div>
-</section>
-
-  
+      <h3>🔍 Art Criticism Resources</h3>
+      <div class="resource-grid">
+        <div class="resource-item">
+          <h4>The Art Critiquing Process - 4 Steps</h4>
+          <p>Step-by-step guide to analyzing and critiquing artwork</p>
+        </div>
+        <div class="resource-item">
+          <h4>Art in Focus - 4 Steps Art Criticism</h4>
+          <p>Detailed framework for structured art analysis</p>
+        </div>
+        <div class="resource-item">
+          <h4>Art in Focus - Elements and Principles</h4>
+          <p>Comprehensive guide to visual elements and design principles</p>
+        </div>
+      </div>
+    </section>
 
     <section id="extension">
       <h2>Student Extension Request Form</h2>
@@ -754,32 +672,11 @@
       <h2>Syllabus Quiz</h2>
       <p>Test your knowledge of the syllabus! This helps ensure you understand the course expectations.</p>
       <div class="quiz">
-        <div class="quiz-question">
-          <label>1. What is Mrs. Watts' email address?</label>
-          <input type="text" id="q1" placeholder="Enter email address" />
-        </div>
-        
-        <div class="quiz-question">
-          <label>2. What is the full course name?</label>
-          <input type="text" id="q2" placeholder="Enter course name" />
-        </div>
-        
-        <div class="quiz-question">
-          <label>3. Can you submit work by email? (yes/no)</label>
-          <input type="text" id="q3" placeholder="yes or no" />
-        </div>
-        
-        <div class="quiz-question">
-          <label>4. Are AI-generated images allowed in your artwork? (yes/no)</label>
-          <input type="text" id="q4" placeholder="yes or no" />
-        </div>
-        
-        <div class="quiz-question">
-          <label>5. How long after the due date will work close permanently?</label>
-          <input type="text" id="q5" placeholder="Enter time period" />
-        </div>
-        
-        <button onclick="gradeQuiz()" type="button" id="quiz-button">✨ Check My Answers</button>
+        <label>1. What is Mrs. Watts' email address?<br><input type="text" id="q1" placeholder="Enter email address" /></label>
+        <label>2. What is the full course name?<br><input type="text" id="q2" placeholder="Enter course name" /></label>
+        <label>3. Can you submit work by email? (yes/no)<br><input type="text" id="q3" placeholder="yes or no" /></label>
+        <label>4. Are AI-generated images allowed in your artwork? (yes/no)<br><input type="text" id="q4" placeholder="yes or no" /></label>
+        <button onclick="gradeQuiz()" type="button">✨ Check My Answers</button>
         <div id="quiz-feedback"></div>
       </div>
     </section>
@@ -821,134 +718,47 @@
       }, 100);
     }
 
-    // Enhanced quiz functionality with better validation and feedback
+    // Enhanced quiz functionality
     function gradeQuiz() {
       const answers = {
-        q1: {
-          correct: ['bwatts@agoracyber.net'],
-          explanation: 'Mrs. Watts\' email is bwatts@agoracyber.net'
-        },
-        q2: {
-          correct: ['art010 - fine art', 'art010a_fineart_4', 'fine art', 'art010'],
-          explanation: 'The course name is ART010 - Fine Art (also referenced as ART010A_FineArt_4)'
-        },
-        q3: {
-          correct: ['no'],
-          explanation: 'Work must be submitted via course tools, not by email'
-        },
-        q4: {
-          correct: ['no'],
-          explanation: 'AI-generated images are not allowed unless explicitly instructed by the teacher'
-        },
-        q5: {
-          correct: ['2 weeks', 'two weeks', '2 weeks after due date', 'two weeks after due date'],
-          explanation: 'Work closes permanently 2 weeks after the due date per Agora 2026 Policy'
-        }
+        q1: 'bwatts@agoracyber.net',
+        q2: 'Fine Art',
+        q3: 'no',
+        q4: 'no'
       };
       
       let score = 0;
       let total = Object.keys(answers).length;
-      let detailedResults = [];
-      
-      // Clear previous styling
-      document.querySelectorAll('.quiz input').forEach(input => {
-        input.classList.remove('correct', 'incorrect');
-      });
+      let feedback = '';
       
       // Grade each question
-      for (const [questionId, answerData] of Object.entries(answers)) {
-        const userAnswer = document.getElementById(questionId).value.trim().toLowerCase();
-        const input = document.getElementById(questionId);
-        let isCorrect = false;
+      for (const [key, correctAnswer] of Object.entries(answers)) {
+        const userAnswer = document.getElementById(key).value.trim().toLowerCase();
+        const correctAnswerLower = correctAnswer.toLowerCase();
         
-        // Check if user answer matches any of the correct answers
-        for (const correctAnswer of answerData.correct) {
-          if (userAnswer === correctAnswer.toLowerCase() || 
-              (questionId === 'q2' && userAnswer.includes('art010') && userAnswer.includes('fine art'))) {
-            isCorrect = true;
-            break;
-          }
-        }
-        
-        if (isCorrect) {
+        if (userAnswer === correctAnswerLower || 
+            (key === 'q2' && userAnswer.includes('art010') && userAnswer.includes('fine art'))) {
           score++;
-          input.classList.add('correct');
-          detailedResults.push({
-            question: questionId,
-            correct: true,
-            userAnswer: document.getElementById(questionId).value.trim(),
-            explanation: answerData.explanation
-          });
-        } else {
-          input.classList.add('incorrect');
-          detailedResults.push({
-            question: questionId,
-            correct: false,
-            userAnswer: document.getElementById(questionId).value.trim(),
-            correctAnswer: answerData.correct[0],
-            explanation: answerData.explanation
-          });
         }
       }
       
-      // Provide comprehensive feedback
+      // Provide feedback
       const feedbackDiv = document.getElementById('quiz-feedback');
-      const button = document.getElementById('quiz-button');
-      
-      feedbackDiv.classList.remove('show', 'success', 'partial', 'fail');
-      
-      let feedback = '';
-      let feedbackClass = '';
+      feedbackDiv.classList.remove('show', 'success', 'partial');
       
       if (score === total) {
-        feedback = `🎉 Perfect Score! You got ${score} out of ${total} questions correct!`;
-        feedbackClass = 'success';
-        button.textContent = '🎨 Retake Quiz';
-      } else if (score >= Math.ceil(total * 0.6)) {
-        feedback = `👍 Good Job! You scored ${score} out of ${total}. Review the areas you missed and try again!`;
-        feedbackClass = 'partial';
-        button.textContent = '🔄 Try Again';
+        feedback = `🎉 Perfect! You scored ${score} out of ${total}! You're ready to create amazing art!`;
+        feedbackDiv.classList.add('success');
+      } else if (score >= total / 2) {
+        feedback = `🎨 Good effort! You scored ${score} out of ${total}. Review the syllabus and try again!`;
+        feedbackDiv.classList.add('partial');
       } else {
-        feedback = `📚 Keep Studying! You scored ${score} out of ${total}. Please review the syllabus carefully and retake the quiz.`;
-        feedbackClass = 'fail';
-        button.textContent = '📖 Study & Retry';
+        feedback = `📚 You scored ${score} out of ${total}. Please review the syllabus more carefully and try again!`;
+        feedbackDiv.classList.add('partial');
       }
       
-      // Create detailed results
-      let resultsHTML = `
-        <div class="quiz-results">
-          <h4>Detailed Results:</h4>
-          <ul>
-      `;
-      
-      const questionLabels = {
-        q1: "Mrs. Watts' email address",
-        q2: "Course name",
-        q3: "Submit work by email",
-        q4: "AI-generated images allowed",
-        q5: "Work closure time period"
-      };
-      
-      detailedResults.forEach(result => {
-        const questionLabel = questionLabels[result.question];
-        if (result.correct) {
-          resultsHTML += `<li><strong>${questionLabel}:</strong> <span class="correct-answer">✓ Correct</span> - ${result.explanation}</li>`;
-        } else {
-          resultsHTML += `<li><strong>${questionLabel}:</strong> <span class="incorrect-answer">✗ Incorrect</span><br>
-                         Your answer: "${result.userAnswer}"<br>
-                         Correct answer: "${result.correctAnswer}"<br>
-                         ${result.explanation}</li>`;
-        }
-      });
-      
-      resultsHTML += `</ul></div>`;
-      
-      feedbackDiv.innerHTML = feedback + resultsHTML;
-      feedbackDiv.classList.add(feedbackClass);
+      feedbackDiv.textContent = feedback;
       feedbackDiv.classList.add('show');
-      
-      // Scroll to feedback
-      feedbackDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     // Print and save functionality for extension form
@@ -1048,7 +858,7 @@ Reason for Request: ${formData.reason}
 Help Needed: ${formData.help ? 'Yes, I need help on this assignment' : 'No'}
 Can Complete Independently: ${formData.complete ? 'Yes, I can complete this assignment on my own' : 'No'}
 Planned Turn-in Date: ${formData.turnin}
-Digital Signature: ${formData.signature}
+Signature: ${formData.signature}
 
 Instructions: Please email this completed form to bwatts@agoracyber.net
       `;
