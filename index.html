@@ -4,29 +4,653 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fine Art Syllabus - Mrs. Watts</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
   <script>
     function showTab(tabId, event) {
       if (event) event.preventDefault();
+      
+      // Remove active class from all nav links
       document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      
+      // Add active class to clicked nav link
       if (event) event.target.classList.add('active');
+      
+      // Hide all sections
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
+      
+      // Show the selected section
+      const targetSection = document.getElementById(tabId);
+      if (targetSection) {
+        targetSection.classList.add('active');
+      }
+      
+      // Handle particles for scavenger hunt
+      const particles = document.getElementById('particles');
+      if (particles) {
+        if (tabId === 'scavenger-hunt') {
+          particles.classList.add('active');
+          createParticles();
+        } else {
+          particles.classList.remove('active');
+        }
+      }
+    }
+    
+    // Initialize first tab as active when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      showTab('welcome');
+      document.querySelector('nav a[onclick*="welcome"]').classList.add('active');
+    });
+    
+    // Sparkle particles animation for scavenger hunt
+    function createParticles() {
+      const particles = document.getElementById('particles');
+      if (!particles) return;
+      
+      // Clear existing particles
+      particles.innerHTML = '';
+      
+      const particleCount = 40;
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        const size = Math.random() * 7 + 5;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = Math.random() * 100 + 'vh';
+        particle.style.animationDelay = (Math.random() * 6) + 's';
+        particle.style.animationDuration = (Math.random() * 2 + 4) + 's';
+        particle.style.background = 'rgba(255,255,255,'+(Math.random()*0.6+0.3).toFixed(2)+')';
+        particles.appendChild(particle);
+      }
+    }
+    
+    // Quiz grading logic
+    function gradeScavengerQuiz() {
+      const answers = {
+        sq1: "mrs. watts",
+        sq2: ["work", "participation", "effort", "responsibility", "complete", "dedication"],
+        sq3: ["paper", "pencil", "color"]
+      };
+
+      let score = 0;
+      let total = 3;
+      let feedback = [];
+
+      // Q1
+      const user1 = document.getElementById("sq1").value.trim().toLowerCase();
+      if (user1 === answers.sq1) {
+        score++;
+        feedback.push("✅ <b>1. Correct!</b> Mrs. Watts is your teacher. 👩‍🏫");
+      } else {
+        feedback.push("❌ <b>1.</b> The correct answer is: <b>Mrs. Watts</b>.");
+      }
+
+      // Q2 - accept any keyword
+      const user2 = document.getElementById("sq2").value.trim().toLowerCase();
+      const foundQ2 = answers.sq2.some(word => user2.includes(word));
+      if (foundQ2) {
+        score++;
+        feedback.push("✅ <b>2. Correct!</b> Dedication, participation, and effort are important to succeed! 💪");
+      } else {
+        feedback.push("❌ <b>2.</b> Typical answers: <b>work, participation, effort, responsibility, dedication</b>.");
+      }
+
+      // Q3 - must mention all 3 key supply words
+      const user3 = document.getElementById("sq3").value.trim().toLowerCase();
+      const foundQ3 = answers.sq3.every(item => user3.includes(item));
+      if (foundQ3) {
+        score++;
+        feedback.push("✅ <b>3. Correct!</b> Paper, pencil, and something to color with are needed! 📄✏️🖍️");
+      } else {
+        feedback.push("❌ <b>3.</b> Supplies: <b>paper</b>, <b>pencil</b>, and something to color with (like crayons, markers, or colored pencils).");
+      }
+
+      // Show feedback
+      const feedbackDiv = document.getElementById("scavenger-quiz-feedback");
+      feedbackDiv.classList.remove("show", "success", "partial");
+
+      let summary = `<span class="sparkle">✨</span> <b>You scored ${score} out of ${total}.</b><br><br>` + feedback.join("<br>");
+      feedbackDiv.innerHTML = summary;
+      feedbackDiv.classList.add("show");
+      if (score === total) {
+        feedbackDiv.classList.add("success");
+        feedbackDiv.innerHTML = `🎉 <b>Perfect!</b> You scored ${score} out of ${total}! Great job! <br><br>` + feedback.join("<br>");
+      } else if (score >= 2) {
+        feedbackDiv.classList.add("partial");
+        feedbackDiv.innerHTML = `👍 <b>Good effort!</b> You scored ${score} out of ${total}. Review the syllabus and try again! <br><br>` + feedback.join("<br>");
+      } else {
+        feedbackDiv.classList.add("partial");
+        feedbackDiv.innerHTML = `📚 <b>Keep going!</b> You scored ${score} out of ${total}. Review the syllabus and try again! <br><br>` + feedback.join("<br>");
+      }
     }
   </script>
   <style>
-    section { display: none; }
-    section.active { display: block; }
-    nav a.active { background: #667eea; color: white; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    /* Particles for scavenger hunt */
+    .particles {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+      display: none;
+    }
+    
+    .particles.active {
+      display: block;
+    }
+    
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      animation: floaty 6s infinite ease-in-out;
+      box-shadow: 0 0 18px 4px #fff5;
+    }
+    
+    @keyframes floaty {
+      0%   { transform: translateY(0) scale(1); opacity: 1;}
+      40%  { opacity: 0.8;}
+      50%  { transform: translateY(-40px) scale(1.3); opacity: 0.5;}
+      100% { transform: translateY(0) scale(1); opacity: 1;}
+    }
+    
+    @keyframes sparkle {
+      from { filter: brightness(1.1) drop-shadow(0 0 8px #ffe066); }
+      to { filter: brightness(1.25) drop-shadow(0 0 24px #f7cac9);}
+    }
+    
+    @keyframes sparkleTwinkle {
+      from { filter: drop-shadow(0 0 5px #fad0c4);}
+      to   { filter: drop-shadow(0 0 16px #fcb69f);}
+    }
+    
+    @keyframes floatyArt {
+      from {transform: translateY(0);}
+      to   {transform: translateY(-8px);}
+    }
+    
+    nav {
+      background: #2c3e50;
+      padding: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background 0.3s;
+      font-size: 0.9rem;
+    }
+    
+    nav a:hover {
+      background: #34495e;
+    }
+    
+    nav a.active {
+      background: #667eea;
+      color: white;
+    }
+    
+    .content-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: rgba(255,255,255,0.95);
+      min-height: 80vh;
+      position: relative;
+      z-index: 5;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+    }
+    
+    section {
+      display: none;
+    }
+    
+    section.active {
+      display: block;
+    }
+    
+    h1, h2, h3 {
+      color: #2c3e50;
+      margin-bottom: 1rem;
+    }
+    
+    h1 {
+      text-align: center;
+      border-bottom: 3px solid #667eea;
+      padding-bottom: 0.5rem;
+    }
+    
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .resource-item {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 1rem;
+      text-decoration: none;
+      color: #333;
+      transition: all 0.3s;
+    }
+    
+    .resource-item:hover {
+      background: #e9ecef;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .resource-item h4 {
+      color: #667eea;
+      margin-bottom: 0.5rem;
+    }
+    
+    iframe {
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .info-box {
+      background: #e8f4f8;
+      border-left: 4px solid #667eea;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    
+    .contact-info {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+    
+    .grade-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+    
+    .grade-table th,
+    .grade-table td {
+      border: 1px solid #dee2e6;
+      padding: 0.75rem;
+      text-align: left;
+    }
+    
+    .grade-table th {
+      background: #667eea;
+      color: white;
+    }
+    
+    .grade-table tr:nth-child(even) {
+      background: #f8f9fa;
+    }
+    
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      nav a {
+        margin: 2px;
+      }
+      
+      .content-container {
+        padding: 1rem;
+        margin: 0;
+        border-radius: 0;
+      }
+    }
+    
+    /* Scavenger Hunt Specific Styles */
+    .scavenger-container {
+      max-width: 540px;
+      margin: 20px auto;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 8px 32px rgba(102, 126, 234, 0.14);
+      border-radius: 20px;
+      padding: 32px 28px 28px 28px;
+      text-align: center;
+    }
+    
+    .header-emoji {
+      font-size: 3rem;
+      margin-bottom: 0.3em;
+      animation: sparkle 2s infinite alternate;
+    }
+    
+    .scavenger-quiz {
+      padding: 20px 0 0 0;
+    }
+    
+    .scavenger-quiz label, .scavenger-quiz p {
+      font-weight: 500;
+      color: #333;
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+    
+    .scavenger-quiz input[type="text"] {
+      width: 94%;
+      padding: 12px;
+      border-radius: 9px;
+      border: 1.5px solid #fed6e3;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      background: #fff8;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      outline: none;
+    }
+    
+    .scavenger-quiz input[type="text"]:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 10px #667eea55;
+      background: #fff;
+    }
+    
+    .scavenger-quiz button {
+      background: linear-gradient(90deg, #667eea 30%, #764ba2 100%);
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 22px;
+      padding: 13px 36px;
+      margin-top: 10px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px #667eea22;
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 1px;
+    }
+    
+    .scavenger-quiz button:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 10px 32px #667eea33;
+      background: linear-gradient(90deg, #764ba2 10%, #667eea 100%);
+    }
+    
+    #scavenger-quiz-feedback {
+      margin-top: 25px;
+      padding: 18px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      opacity: 0;
+      background: transparent;
+      color: #222;
+      transition: all 0.6s cubic-bezier(.44,1.27,.42,.94);
+      text-align: left;
+      box-shadow: none;
+    }
+    
+    #scavenger-quiz-feedback.show {
+      opacity: 1;
+      background: linear-gradient(90deg, #f3e7e9 40%, #e3eeff 100%);
+      box-shadow: 0 2px 12px #667eea22;
+    }
+    
+    #scavenger-quiz-feedback.success {
+      background: linear-gradient(90deg, #a8edea 0%, #84fab0 100%);
+      color: #2d5a27;
+      box-shadow: 0 2px 16px #84fab033;
+    }
+    
+    #scavenger-quiz-feedback.partial {
+      background: linear-gradient(90deg, #fcb69f 0%, #ffecd2 100%);
+      color: #8b4513;
+    }
+    
+    img.art-image {
+      width: 85%;
+      max-width: 380px;
+      margin: 22px auto 18px auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 36px #b1a8ed55;
+      display: block;
+      animation: floatyArt 2s infinite alternate;
+    }
+    
+    .supplies-icons {
+      font-size: 1.7rem;
+      margin-bottom: 2px;
+      margin-top: 0;
+    }
+    
+    .sparkle {
+      animation: sparkleTwinkle 1.4s infinite alternate;
+    }
   </style>
 </head>
 <body>
+  <!-- Sparkle Particles -->
+  <div class="particles" id="particles"></div>
+  
   <nav>
-    <a href="#" onclick="showTab('resources', event)" class="active">Resources</a>
-    <!-- Add other nav items here -->
+    <a href="#" onclick="showTab('welcome', event)">Welcome</a>
+    <a href="#" onclick="showTab('contact', event)">Contact</a>
+    <a href="#" onclick="showTab('course-info', event)">Course Info</a>
+    <a href="#" onclick="showTab('daily-tasks', event)">Daily Tasks</a>
+    <a href="#" onclick="showTab('grade-policy', event)">Grade Policy</a>
+    <a href="#" onclick="showTab('academic-integrity', event)">Academic Integrity</a>
+    <a href="#" onclick="showTab('resources', event)">Resources</a>
+    <a href="#" onclick="showTab('extension-request', event)">Extension Request</a>
+    <a href="#" onclick="showTab('quiz', event)">Quiz</a>
+    <a href="#" onclick="showTab('scavenger-hunt', event)">Scavenger Hunt</a>
   </nav>
-  <div class="content-container loading">
 
-    <section id="resources" class="active">
+  <div class="content-container">
+    <section id="welcome" class="active">
+      <h1>Welcome to Fine Art</h1>
+      <h2>Mrs. Watts</h2>
+      <div class="info-box">
+        <p>Welcome to an exciting journey through the world of fine art! This course will introduce you to fundamental art concepts, techniques, and creative expression. You'll explore various media, develop your artistic skills, and learn to appreciate art from different cultures and time periods.</p>
+      </div>
+      <h3>Course Overview</h3>
+      <p>This comprehensive fine art course covers essential elements of visual art including drawing, painting, color theory, composition, and art history. Students will develop both technical skills and creative thinking while building a portfolio of original artwork.</p>
+      
+      <h3>What You'll Learn</h3>
+      <ul>
+        <li>Fundamental elements of art and principles of design</li>
+        <li>Various drawing and painting techniques</li>
+        <li>Color theory and application</li>
+        <li>Art history and cultural contexts</li>
+        <li>Critical thinking and art criticism skills</li>
+        <li>Portfolio development and presentation</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Information</h2>
+      <div class="contact-info">
+        <h3>Mrs. Watts</h3>
+        <p><strong>Email:</strong> [Your email will be provided in class]</p>
+        <p><strong>Room:</strong> [Art Room Number]</p>
+        <p><strong>Office Hours:</strong> [Available by appointment]</p>
+        <p><strong>Response Time:</strong> I will respond to emails within 24-48 hours during school days.</p>
+      </div>
+      
+      <h3>Communication Guidelines</h3>
+      <ul>
+        <li>Use your school email account for all correspondence</li>
+        <li>Include your full name and class period in the subject line</li>
+        <li>Be specific about your questions or concerns</li>
+        <li>Allow adequate time for responses, especially before due dates</li>
+      </ul>
+    </section>
+
+    <section id="course-info">
+      <h2>Course Information</h2>
+      
+      <h3>Course Description</h3>
+      <p>This fine art course provides students with a comprehensive introduction to visual arts. Students will explore various artistic media, learn fundamental techniques, and develop their creative voice through hands-on projects and theoretical study.</p>
+      
+      <h3>Course Objectives</h3>
+      <ul>
+        <li>Develop technical skills in drawing, painting, and mixed media</li>
+        <li>Understand and apply elements of art and principles of design</li>
+        <li>Analyze and critique artwork using proper terminology</li>
+        <li>Explore art history and cultural contexts</li>
+        <li>Build a portfolio demonstrating growth and skill development</li>
+        <li>Express personal ideas and emotions through artistic creation</li>
+      </ul>
+      
+      <h3>Required Materials</h3>
+      <ul>
+        <li>Sketchbook (9"x12" minimum)</li>
+        <li>Drawing pencils (2H, HB, 2B, 4B)</li>
+        <li>Eraser and blending tools</li>
+        <li>Basic acrylic paint set</li>
+        <li>Brushes (various sizes)</li>
+        <li>Additional materials will be specified for individual projects</li>
+      </ul>
+    </section>
+
+    <section id="daily-tasks">
+      <h2>Daily Tasks & Expectations</h2>
+      
+      <h3>Daily Routine</h3>
+      <div class="info-box">
+        <p><strong>Beginning of Class:</strong> Check daily agenda, gather materials, review previous work</p>
+        <p><strong>During Class:</strong> Active participation in demonstrations, work on projects, clean workspace</p>
+        <p><strong>End of Class:</strong> Clean up thoroughly, submit work as required, prepare for next class</p>
+      </div>
+      
+      <h3>Student Responsibilities</h3>
+      <ul>
+        <li>Arrive on time and prepared for class</li>
+        <li>Maintain and care for art supplies and workspace</li>
+        <li>Follow safety procedures and studio guidelines</li>
+        <li>Participate actively in critiques and discussions</li>
+        <li>Complete assignments on time and to the best of your ability</li>
+        <li>Respect others' artwork and creative process</li>
+      </ul>
+      
+      <h3>Studio Expectations</h3>
+      <ul>
+        <li>Keep work area organized and clean</li>
+        <li>Handle materials and tools properly</li>
+        <li>Ask for help when needed</li>
+        <li>Work quietly and respectfully</li>
+        <li>Store artwork properly in designated areas</li>
+      </ul>
+    </section>
+
+    <section id="grade-policy">
+      <h2>Grading Policy</h2>
+      
+      <h3>Grade Distribution</h3>
+      <table class="grade-table">
+        <tr>
+          <th>Category</th>
+          <th>Percentage</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>Projects/Artwork</td>
+          <td>60%</td>
+          <td>Major art projects and portfolio pieces</td>
+        </tr>
+        <tr>
+          <td>Participation/Effort</td>
+          <td>20%</td>
+          <td>Daily participation, critiques, and studio work</td>
+        </tr>
+        <tr>
+          <td>Homework/Sketchbook</td>
+          <td>15%</td>
+          <td>Daily sketching, practice exercises, and assignments</td>
+        </tr>
+        <tr>
+          <td>Tests/Quizzes</td>
+          <td>5%</td>
+          <td>Art history, vocabulary, and technique assessments</td>
+        </tr>
+      </table>
+      
+      <h3>Grading Scale</h3>
+      <table class="grade-table">
+        <tr>
+          <th>Letter Grade</th>
+          <th>Percentage</th>
+        </tr>
+        <tr><td>A</td><td>90-100%</td></tr>
+        <tr><td>B</td><td>80-89%</td></tr>
+        <tr><td>C</td><td>70-79%</td></tr>
+        <tr><td>D</td><td>60-69%</td></tr>
+        <tr><td>F</td><td>Below 60%</td></tr>
+      </table>
+      
+      <h3>Late Work Policy</h3>
+      <p>Late assignments will be penalized 10% per day late. Work more than one week late will not be accepted without prior arrangement. Extensions may be granted for legitimate reasons when requested in advance.</p>
+    </section>
+
+    <section id="academic-integrity">
+      <h2>Academic Integrity</h2>
+      
+      <h3>Expectations</h3>
+      <p>All artwork submitted must be your original creation. While learning from other artists is encouraged, direct copying without attribution is not acceptable.</p>
+      
+      <h3>Acceptable Practices</h3>
+      <ul>
+        <li>Using reference materials and photographs</li>
+        <li>Drawing inspiration from other artists (with proper attribution)</li>
+        <li>Collaborating when specifically assigned</li>
+        <li>Asking for help and guidance from the instructor</li>
+        <li>Studying techniques and methods from various sources</li>
+      </ul>
+      
+      <h3>Unacceptable Practices</h3>
+      <ul>
+        <li>Copying another student's work</li>
+        <li>Submitting work created by someone else</li>
+        <li>Unauthorized collaboration on individual assignments</li>
+        <li>Plagiarizing ideas without proper attribution</li>
+        <li>Using AI-generated content without disclosure</li>
+      </ul>
+      
+      <h3>Consequences</h3>
+      <p>Violations of academic integrity will result in a zero for the assignment and may lead to further disciplinary action according to school policy.</p>
+    </section>
+
+    <section id="resources">
       <h2>Resources</h2>
       <p>Click any resource below to access the presentation with all course materials.</p>
 
@@ -92,6 +716,95 @@
       </iframe>
     </section>
 
+    <section id="extension-request">
+      <h2>Extension Request</h2>
+      
+      <h3>When to Request an Extension</h3>
+      <ul>
+        <li>Illness or family emergency</li>
+        <li>Technical difficulties with equipment</li>
+        <li>Scheduling conflicts with school events</li>
+        <li>Other legitimate circumstances beyond your control</li>
+      </ul>
+      
+      <h3>How to Request an Extension</h3>
+      <ol>
+        <li>Email Mrs. Watts as soon as possible</li>
+        <li>Explain your situation clearly and honestly</li>
+        <li>Provide any necessary documentation</li>
+        <li>Suggest a reasonable new deadline</li>
+        <li>Wait for approval before assuming the extension is granted</li>
+      </ol>
+      
+      <div class="info-box">
+        <p><strong>Important:</strong> Extensions are not automatically granted. Requests must be made before the due date when possible. Last-minute requests may not be approved unless for emergency situations.</p>
+      </div>
+      
+      <h3>Extension Guidelines</h3>
+      <ul>
+        <li>Maximum extension is typically one week</li>
+        <li>Multiple extensions for the same student may not be granted</li>
+        <li>Extensions may affect participation in class critiques</li>
+        <li>All extension requests must be documented via email</li>
+      </ul>
+    </section>
+
+    <section id="quiz">
+      <h2>Quiz Information</h2>
+      
+      <h3>Quiz Topics</h3>
+      <p>Quizzes will cover material from lectures, demonstrations, and required readings. Topics may include:</p>
+      <ul>
+        <li>Elements of Art vocabulary</li>
+        <li>Principles of Design</li>
+        <li>Art history and famous artists</li>
+        <li>Color theory concepts</li>
+        <li>Art techniques and media</li>
+        <li>Art criticism terminology</li>
+      </ul>
+      
+      <h3>Quiz Format</h3>
+      <ul>
+        <li>Multiple choice questions</li>
+        <li>Fill-in-the-blank vocabulary</li>
+        <li>Short answer responses</li>
+        <li>Image identification</li>
+        <li>Matching exercises</li>
+      </ul>
+      
+      <h3>Preparation Tips</h3>
+      <ul>
+        <li>Review class notes and handouts regularly</li>
+        <li>Use the vocabulary resources provided</li>
+        <li>Study with classmates</li>
+        <li>Ask questions during class</li>
+        <li>Practice identifying elements and principles in artwork</li>
+      </ul>
+      
+      <h3>Make-up Policy</h3>
+      <p>Students who miss a quiz due to excused absence must make arrangements to take the quiz within one week of returning to class. No make-up quizzes will be given for unexcused absences.</p>
+    </section>
+
+    <section id="scavenger-hunt">
+      <div class="scavenger-container">
+        <div class="header-emoji sparkle">✨🎨✨</div>
+        <h1>Scavenger Hunt Quiz <span class="sparkle">🌟</span></h1>
+        <img class="art-image" src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=800&q=80" alt="Art Supplies" />
+        <div class="scavenger-quiz">
+          <p>1. Who is your teacher?</p>
+          <input type="text" id="sq1" placeholder="Type: Mrs. Watts" autocomplete="off" /><br/>
+
+          <p>2. What is required to succeed in this course? <span title="Hint: try words like 'effort', 'participation', 'responsibility', or 'dedication'">📝</span></p>
+          <input type="text" id="sq2" placeholder="E.g. effort, participation..." autocomplete="off"/><br/>
+
+          <p>3. What supplies do you need? <span class="supplies-icons">📄✏️🖍️🖌️</span></p>
+          <input type="text" id="sq3" placeholder="E.g. paper, pencil, something to color with" autocomplete="off"/><br/>
+
+          <button onclick="gradeScavengerQuiz()">✨ Check My Answers</button>
+          <div id="scavenger-quiz-feedback"></div>
+        </div>
+      </div>
+    </section>
   </div>
 </body>
 </html>
