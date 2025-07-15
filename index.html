@@ -670,7 +670,6 @@
     </section>
 
     <section id="resources">
-      <section id="resources">
   <h2>Resources</h2>
   <p>Click any resource below to access the presentation with all course materials.</p>
 
@@ -727,6 +726,7 @@
   </div>
 </section>
 
+
   
 
     <section id="extension">
@@ -776,6 +776,11 @@
         
         <div class="quiz-question">
           <label>5. How long after the due date will work close permanently?</label>
+          <input type="text" id="q5" placeholder="Enter time period" />
+        </div>
+
+        <div class="quiz-question">
+          <label>6. Do you need physical art supplies for the course? Yes or No?</label>
           <input type="text" id="q5" placeholder="Enter time period" />
         </div>
         
@@ -843,6 +848,10 @@
         q5: {
           correct: ['2 weeks', 'two weeks', '2 weeks after due date', 'two weeks after due date'],
           explanation: 'Work closes permanently 2 weeks after the due date per Agora 2026 Policy'
+         },
+        q6: {
+          correct: ['YES', 'Yes', 'yes', 'YEs'],
+          explanation: 'Yes, you will need paper, pencil, and something to color with'
         }
       };
       
@@ -927,6 +936,7 @@
         q3: "Submit work by email",
         q4: "AI-generated images allowed",
         q5: "Work closure time period"
+        q6: "Art supplies"
       };
       
       detailedResults.forEach(result => {
