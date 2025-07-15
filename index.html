@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fine Art & Foundations of Art A & B Course Syllabus - Mrs. Watts</title>
+  <title>Fine Art & Foundations of Art A & B Courses Syllabus</title>
   <style>
     * {
       margin: 0;
@@ -497,19 +497,19 @@
 
   <header class="loading">
     <h1>🎨 Fine Arts with Mrs. Watts</h1>
-    <p>Welcome to Art! Fine Art & Foundations of Art A & B Course Syllabus</p>
+    <p>Fine Art & Foundations of Art A & B Courses Syllabus</p>
   </header>
 
   <nav class="loading">
-    <a href="#" onclick="showTab(event, 'about')" class="active">Welcome</a>
-    <a href="#" onclick="showTab(event, 'contact')">Contact</a>
-    <a href="#" onclick="showTab(event, 'course')">Course Info</a>
-    <a href="#" onclick="showTab(event, 'daily')">Daily Tasks</a>
-    <a href="#" onclick="showTab(event, 'grading')">Grading Policy</a>
-    <a href="#" onclick="showTab(event, 'plagiarism')">Academic Integrity</a>
-    <a href="#" onclick="showTab(event, 'resources')">Resources</a>
-    <a href="#" onclick="showTab(event, 'extension')">Extension Request</a>
-    <a href="#" onclick="showTab(event, 'quiz')">Quiz</a>
+    <a href="#" data-tab="about" class="active">Welcome</a>
+    <a href="#" data-tab="contact">Contact</a>
+    <a href="#" data-tab="course">Course Info</a>
+    <a href="#" data-tab="daily">Daily Tasks</a>
+    <a href="#" data-tab="grading">Grading Policy</a>
+    <a href="#" data-tab="plagiarism">Academic Integrity</a>
+    <a href="#" data-tab="resources">Resources</a>
+    <a href="#" data-tab="extension">Extension Request</a>
+    <a href="#" data-tab="quiz">Quiz</a>
   </nav>
 
   <div class="content-container loading">
@@ -705,13 +705,13 @@
       }
     }
 
-    // Tab switching with smooth transitions
-    function showTab(event, tabId) {
+    // Fixed tab switching function
+    function showTab(tabId) {
       // Remove active class from all nav items
       document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
 
       // Add active class to clicked nav item
-      event.target.classList.add('active');
+      document.querySelector(`nav a[data-tab="${tabId}"]`).classList.add('active');
 
       // Hide all sections
       document.querySelectorAll('section').forEach(sec => {
@@ -755,4 +755,10 @@
       feedbackDiv.classList.remove('show', 'success', 'partial');
       
       if (score === total) {
-        feedback = `🎉 Perfect! You scored ${score} out of ${total}! You're ready to start
+        feedback = `🎉 Perfect! You scored ${score} out of ${total}! You're ready to start the course!`;
+        feedbackDiv.classList.add('success');
+      } else if (score >= total * 0.6) {
+        feedback = `📚 Good effort! You scored ${score} out of ${total}. Please review the syllabus for the questions you missed.`;
+        feedbackDiv.classList.add('partial');
+      } else {
+        feedback
