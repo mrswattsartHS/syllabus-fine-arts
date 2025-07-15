@@ -401,10 +401,14 @@
       border-radius: 10px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
     }
 
     .resource-item:hover {
       transform: translateY(-5px);
+      text-decoration: none;
     }
 
     .resource-item h4 {
@@ -497,17 +501,15 @@
   </header>
 
   <nav class="loading">
-    
-<a href="#" onclick="showTab(event, 'about')" class="active">Welcome</a>
-<a href="#" onclick="showTab(event, 'contact')">Contact</a>
-<a href="#" onclick="showTab(event, 'course')">Course Info</a>
-<a href="#" onclick="showTab(event, 'daily')">Daily Tasks</a>
-<a href="#" onclick="showTab(event, 'grading')">Grading Policy</a>
-<a href="#" onclick="showTab(event, 'plagiarism')">Academic Integrity</a>
-<a href="#" onclick="showTab(event, 'resources')">Resources</a>
-<a href="#" onclick="showTab(event, 'extension')">Extension Request</a>
-<a href="#" onclick="showTab(event, 'quiz')">Quiz</a>
-
+    <a href="#" onclick="showTab(event, 'about')" class="active">Welcome</a>
+    <a href="#" onclick="showTab(event, 'contact')">Contact</a>
+    <a href="#" onclick="showTab(event, 'course')">Course Info</a>
+    <a href="#" onclick="showTab(event, 'daily')">Daily Tasks</a>
+    <a href="#" onclick="showTab(event, 'grading')">Grading Policy</a>
+    <a href="#" onclick="showTab(event, 'plagiarism')">Academic Integrity</a>
+    <a href="#" onclick="showTab(event, 'resources')">Resources</a>
+    <a href="#" onclick="showTab(event, 'extension')">Extension Request</a>
+    <a href="#" onclick="showTab(event, 'quiz')">Quiz</a>
   </nav>
 
   <div class="content-container loading">
@@ -593,17 +595,16 @@
     </section>
 
     <section id="resources">
-      
-  <h2>Resources</h2>
-  <p>Click here for all resources listed below</p>
+      <h2>Resources</h2>
+      <p>Click here for all resources listed below</p>
 
-  <h3>🎨 Artist Statement Worksheets</h3>
-  <div class="resource-grid">
-    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
-      <h4>Artist Statement Worksheets</h4>
-      <p>Templates and guides for writing effective artist statements</p>
-    </a>
-  </div>
+      <h3>🎨 Artist Statement Worksheets</h3>
+      <div class="resource-grid">
+        <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
+          <h4>Artist Statement Worksheets</h4>
+          <p>Templates and guides for writing effective artist statements</p>
+        </a>
+      </div>
 
       <h3>📚 Vocabulary & Reference Materials</h3>
       <div class="resource-grid">
@@ -671,42 +672,16 @@
       </form>
     </section>
 
-</section>
-    <section id="artiststatement">
-      <h2>Write Your Artist Statement</h2>
-      <p>Use this graphic organizer to plan and draft your artist statement. Your statement tells who you are as an artist, what your work expresses, and what influences your creative process.</p>
-      <form id="artistStatementForm">
-        <label>Paragraph I:
-          <textarea rows="4" id="para1" placeholder="I create art because..."></textarea>
-        </label>
-        <label>Paragraph II:
-          <textarea rows="4" id="para2" placeholder="My artwork typically features..."></textarea>
-        </label>
-        <label>Paragraph III:
-          <textarea rows="4" id="para3" placeholder="My art is inspired by..."></textarea>
-        </label>
-        <label>Final Draft:
-          <textarea rows="8" id="finalDraft" placeholder="Now combine your answers into a full artist statement..."></textarea>
-        </label>
-        <div class="print-save-buttons">
-          <button type="button" onclick="printArtistStatement()">🖨️ Print Statement</button>
-          <button type="button" onclick="saveArtistStatementAsWord()">📄 Save as Word</button>
-        </div>
-      </form>
-    </section>
-
-
-
     <section id="quiz">
       <h2>Syllabus Quiz</h2>
       <p>Test your knowledge of the syllabus! This helps ensure you understand the course expectations.</p>
-      </p>Select check my anwsers below to see if you got them all correct. Review any you missed. </p>
+      <p>Select check my answers below to see if you got them all correct. Review any you missed.</p>
       <div class="quiz">
         <label>1. What is Mrs. Watts' email address?<br><input type="text" id="q1" placeholder="Enter email address" /></label>
         <label>2. What is the full course name?<br><input type="text" id="q2" placeholder="Enter course name" /></label>
         <label>3. Can you submit work by email? (yes/no)<br><input type="text" id="q3" placeholder="yes or no" /></label>
         <label>4. Are AI-generated images allowed in your artwork? (yes/no)<br><input type="text" id="q4" placeholder="yes or no" /></label>
-        <label>5. Are art supplies required for this course? Meaning no digital art is accepted. (yes/no)<br><input type="text" id="q4" placeholder="yes or no" /></label>
+        <label>5. Are art supplies required for this course? Meaning no digital art is accepted. (yes/no)<br><input type="text" id="q5" placeholder="yes or no" /></label>
         <button onclick="gradeQuiz()" type="button">✨ Check My Answers</button>
         <div id="quiz-feedback"></div>
       </div>
@@ -731,29 +706,23 @@
     }
 
     // Tab switching with smooth transitions
-  function showTab(event, tabId) {
-  // Remove active class from all nav items
-  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    function showTab(event, tabId) {
+      // Remove active class from all nav items
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
 
-  // Add active class to clicked nav item
-  event.target.classList.add('active');
+      // Add active class to clicked nav item
+      event.target.classList.add('active');
 
-  // Hide all sections
-  document.querySelectorAll('section').forEach(sec => {
-    sec.classList.remove('active');
-  });
+      // Hide all sections
+      document.querySelectorAll('section').forEach(sec => {
+        sec.classList.remove('active');
+      });
 
-  // Show the selected section
-  const selectedSection = document.getElementById(tabId);
-  if (selectedSection) {
-    selectedSection.classList.add('active');
-  }
-}
-
-      // Show selected section with delay for smooth transition
-      setTimeout(() => {
-        document.getElementById(tabId).classList.add('active');
-      }, 100);
+      // Show the selected section
+      const selectedSection = document.getElementById(tabId);
+      if (selectedSection) {
+        selectedSection.classList.add('active');
+      }
     }
 
     // Enhanced quiz functionality
@@ -762,8 +731,8 @@
         q1: 'bwatts@agoracyber.net',
         q2: 'Fine Art',
         q3: 'no',
-        q4: 'no'
-        q5: 'no'
+        q4: 'no',
+        q5: 'yes'
       };
       
       let score = 0;
@@ -786,172 +755,4 @@
       feedbackDiv.classList.remove('show', 'success', 'partial');
       
       if (score === total) {
-        feedback = 🎉 Perfect! You scored ${score} out of ${total}! You're ready to start the course!;
-        feedbackDiv.classList.add('success');
-      } else if (score >= total / 2) {
-        feedback = 🎨 Good effort! You scored ${score} out of ${total}. Review the pages and try again!;
-        feedbackDiv.classList.add('partial');
-      } else {
-        feedback = 📚 You scored ${score} out of ${total}. Please review the pages more carefully or ask for help and try again!;
-        feedbackDiv.classList.add('partial');
-      }
-      
-      feedbackDiv.textContent = feedback;
-      feedbackDiv.classList.add('show');
-    }
-
-    // Print and save functionality for extension form
-    function printForm() {
-      const formData = getFormData();
-      const printWindow = window.open('', '_blank');
-      printWindow.document.write(
-        <html>
-          <head>
-            <title>Extension Request Form</title>
-            <style>
-              body { font-family: Arial, sans-serif; padding: 20px; }
-              h2 { color: #333; }
-              .form-field { margin-bottom: 15px; }
-              .form-field label { font-weight: bold; }
-              .form-field div { margin-top: 5px; }
-            </style>
-          </head>
-          <body>
-            <h2>Student Extension Request Form</h2>
-            <div class="form-field">
-              <label>Date:</label>
-              <div>${formData.date}</div>
-            </div>
-            <div class="form-field">
-              <label>Student Name:</label>
-              <div>${formData.student}</div>
-            </div>
-            <div class="form-field">
-              <label>Assignment Name:</label>
-              <div>${formData.assignment}</div>
-            </div>
-            <div class="form-field">
-              <label>Reason for Request:</label>
-              <div>${formData.reason}</div>
-            </div>
-            <div class="form-field">
-              <label>Help Needed:</label>
-              <div>${formData.help ? 'Yes, I need help on this assignment' : 'No'}</div>
-            </div>
-            <div class="form-field">
-              <label>Can Complete Independently:</label>
-              <div>${formData.complete ? 'Yes, I can complete this assignment on my own' : 'No'}</div>
-            </div>
-            <div class="form-field">
-              <label>Planned Turn-in Date:</label>
-              <div>${formData.turnin}</div>
-            </div>
-            <div class="form-field">
-              <label>Digital Signature:</label>
-              <div>${formData.signature}</div>
-            </div>
-            <br><br>
-            <p><strong>Instructions:</strong> Please email this completed form to bwatts@agoracyber.net</p>
-          </body>
-        </html>
-      );
-      printWindow.document.close();
-      printWindow.print();
-    }
-
-    function saveAsWord() {
-      const formData = getFormData();
-      const content = 
-Student Extension Request Form
-
-Date: ${formData.date}
-Student Name: ${formData.student}
-Assignment Name: ${formData.assignment}
-Reason for Request: ${formData.reason}
-Help Needed: ${formData.help ? 'Yes, I need help on this assignment' : 'No'}
-Can Complete Independently: ${formData.complete ? 'Yes, I can complete this assignment on my own' : 'No'}
-Planned Turn-in Date: ${formData.turnin}
-Digital Signature: ${formData.signature}
-
-Instructions: Please email this completed form to bwatts@agoracyber.net
-      ;
-      
-      const blob = new Blob([content], { type: 'application/msword' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'Extension_Request_Form.doc';
-      link.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function saveAsPDF() {
-      const formData = getFormData();
-      const content = 
-Student Extension Request Form
-
-Date: ${formData.date}
-Student Name: ${formData.student}
-Assignment Name: ${formData.assignment}
-Reason for Request: ${formData.reason}
-Help Needed: ${formData.help ? 'Yes, I need help on this assignment' : 'No'}
-Can Complete Independently: ${formData.complete ? 'Yes, I can complete this assignment on my own' : 'No'}
-Planned Turn-in Date: ${formData.turnin}
-Signature: ${formData.signature}
-
-Instructions: Please email this completed form to bwatts@agoracyber.net
-      ;
-      
-      const blob = new Blob([content], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'Extension_Request_Form.txt';
-      link.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function getFormData() {
-      return {
-        date: document.getElementById('ext-date').value,
-        student: document.getElementById('ext-student').value,
-        assignment: document.getElementById('ext-assignment').value,
-        reason: document.getElementById('ext-reason').value,
-        help: document.getElementById('ext-help').checked,
-        complete: document.getElementById('ext-complete').checked,
-        turnin: document.getElementById('ext-turnin').value,
-        signature: document.getElementById('ext-signature').value
-      };
-    }
-
-    // Add loading animations
-    window.addEventListener('load', function() {
-      createParticles();
-      
-      // Stagger the loading animations
-      setTimeout(() => {
-        document.querySelectorAll('.loading').forEach((el, index) => {
-          setTimeout(() => {
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0)';
-          }, index * 200);
-        });
-      }, 100);
-    });
-
-    // Add smooth scrolling and other enhancements
-    document.addEventListener('DOMContentLoaded', function() {
-      // Add hover effects to images
-      document.querySelectorAll('img').forEach(img => {
-        img.addEventListener('mouseenter', function() {
-          this.style.filter = 'brightness(1.1) saturate(1.2)';
-        });
-        
-        img.addEventListener('mouseleave', function() {
-          this.style.filter = 'brightness(1) saturate(1)';
-        });
-      });
-    });
-  </script>
-</body>
-</html>
+        feedback = `🎉 Perfect! You scored ${score} out of ${total}! You're ready to start
