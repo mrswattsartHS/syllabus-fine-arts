@@ -4,19 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fine Art Syllabus - Mrs. Watts</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: #333;
       overflow-x: hidden;
     }
+
+    /* Animated background particles */
     .particles {
       position: fixed;
       top: 0;
@@ -26,6 +28,7 @@
       pointer-events: none;
       z-index: 1;
     }
+
     .particle {
       position: absolute;
       width: 4px;
@@ -34,72 +37,537 @@
       border-radius: 50%;
       animation: float 6s infinite ease-in-out;
     }
+
     @keyframes float {
       0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
       50% { transform: translateY(-20px) rotate(180deg); opacity: 0.3; }
     }
+
+    /* Header with glassmorphism effect */
     header {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       color: white;
       padding: 40px 20px;
       text-align: center;
       position: relative;
       z-index: 10;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
+
     header h1 {
       font-size: 3rem;
       font-weight: 700;
       margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      animation: slideDown 0.8s ease-out;
     }
+
     header p {
       font-size: 1.2rem;
       opacity: 0.9;
+      animation: slideUp 0.8s ease-out 0.2s both;
     }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Navigation with hover effects */
     nav {
       background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
       gap: 5px;
       padding: 15px 20px;
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      flex-wrap: wrap;
     }
+
     nav a {
       color: #333;
       text-decoration: none;
       font-weight: 600;
       padding: 12px 20px;
       border-radius: 25px;
-      background: transparent;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
       cursor: pointer;
+      background: transparent;
     }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
+    }
+
+    nav a:hover {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    nav a:hover::before {
+      left: 100%;
+    }
+
     nav a.active {
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
     }
+
+    /* Content container */
     .content-container {
       background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
       margin: 40px 20px;
       border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       position: relative;
       z-index: 10;
     }
+
     section {
       display: none;
       padding: 40px;
       max-width: 1000px;
       margin: auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease-out;
     }
+
     section.active {
       display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      color: #667eea;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 2px;
+      animation: expandLine 0.8s ease-out 0.5s both;
+    }
+
+    @keyframes expandLine {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    h3 {
+      color: #764ba2;
+      font-size: 1.5rem;
+      margin: 25px 0 15px 0;
+    }
+
+    p {
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+      padding-left: 10px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    li::before {
+      content: '✨';
+      position: absolute;
+      left: -20px;
+      color: #667eea;
+    }
+
+    /* Image styling */
+    img {
+      max-width: 100%;
+      height: auto;
+      margin: 20px 0;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Form styling */
+    form {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      padding: 30px;
+      border-radius: 15px;
+      margin: 20px 0;
+      box-shadow: 0 10px 25px rgba(240, 147, 251, 0.3);
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 15px;
+      color: white;
+      font-weight: 600;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 5px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+    }
+
+    form input:focus, form textarea:focus {
+      outline: none;
+      background: white;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    form button {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+
+    form button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    form button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Quiz styling */
+    .quiz {
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      padding: 30px;
+      border-radius: 15px;
+      margin: 20px 0;
+    }
+
+    .quiz-question {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
+
+    .quiz-question label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #2d3436;
+    }
+
+    .quiz input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .quiz input:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+      outline: none;
+      background: white;
+    }
+
+    .quiz input.correct {
+      border-color: #00b894;
+      background: rgba(0, 184, 148, 0.1);
+    }
+
+    .quiz input.incorrect {
+      border-color: #e17055;
+      background: rgba(225, 112, 85, 0.1);
+    }
+
+    .quiz button {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .quiz button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .quiz button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #quiz-feedback {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    #quiz-feedback.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #quiz-feedback.success {
+      background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+      color: #2d5a27;
+      border: 2px solid #00b894;
+    }
+
+    #quiz-feedback.partial {
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      color: #8b4513;
+      border: 2px solid #fdcb6e;
+    }
+
+    #quiz-feedback.fail {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      color: #d63031;
+      border: 2px solid #e17055;
+    }
+
+    .quiz-results {
+      margin-top: 15px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .quiz-results h4 {
+      margin-bottom: 10px;
+      color: #2d3436;
+    }
+
+    .quiz-results ul {
+      margin-left: 0;
+      list-style: none;
+    }
+
+    .quiz-results li {
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .quiz-results li:last-child {
+      border-bottom: none;
+    }
+
+    .quiz-results .correct-answer {
+      color: #00b894;
+      font-weight: 600;
+    }
+
+    .quiz-results .incorrect-answer {
+      color: #e17055;
+      font-weight: 600;
+    }
+
+    /* Contact info styling */
+    .contact-info {
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      padding: 25px;
+      border-radius: 15px;
+      margin: 20px 0;
+    }
+
+    .contact-info li {
+      background: rgba(255, 255, 255, 0.3);
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+      transition: transform 0.3s ease;
+    }
+
+    .contact-info li:hover {
+      transform: translateX(10px);
+    }
+
+    .contact-info a {
+      color: #8b4513;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+    /* Resource grid styling */
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .resource-item {
+      background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .resource-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .resource-item h4 {
+      color: #2d3436;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .resource-item p {
+      color: #636e72;
+      font-size: 0.9rem;
+      margin-bottom: 0;
+    }
+
+    /* Print button styling */
+    .print-save-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .print-save-buttons button {
+      background: linear-gradient(135deg, #00b894, #00a085);
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .print-save-buttons button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 184, 148, 0.3);
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      
+      header p {
+        font-size: 1rem;
+      }
+      
+      nav {
+        padding: 10px;
+      }
+      
+      nav a {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
+      
+      section {
+        padding: 20px;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      .content-container {
+        margin: 20px 10px;
+      }
+    }
+
+    /* Loading animation */
+    .loading {
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
+  <!-- Animated background particles -->
   <div class="particles" id="particles"></div>
 
   <header class="loading">
@@ -108,60 +576,221 @@
   </header>
 
   <nav class="loading">
-    <a href="#" onclick="showTab('about', event)" class="active">Welcome</a>
-    <a href="#" onclick="showTab('contact', event)">Contact</a>
-    <a href="#" onclick="showTab('course', event)">Course Info</a>
-    <a href="#" onclick="showTab('daily', event)">Daily Tasks</a>
-    <a href="#" onclick="showTab('grading', event)">Grading Policy</a>
-    <a href="#" onclick="showTab('plagiarism', event)">Academic Integrity</a>
-    <a href="#" onclick="showTab('resources', event)">Resources</a>
-    <a href="#" onclick="showTab('extension', event)">Extension Request</a>
-    <a href="#" onclick="showTab('quiz', event)">Quiz</a>
+    <a onclick="showTab('about')" class="active">Welcome</a>
+    <a onclick="showTab('contact')">Contact</a>
+    <a onclick="showTab('course')">Course Info</a>
+    <a onclick="showTab('daily')">Daily Tasks</a>
+    <a onclick="showTab('grading')">Grading Policy</a>
+    <a onclick="showTab('plagiarism')">Academic Integrity</a>
+    <a onclick="showTab('resources')">Resources</a>
+    <a onclick="showTab('extension')">Extension Request</a>
+    <a onclick="showTab('quiz')">Quiz</a>
   </nav>
 
   <div class="content-container loading">
     <section id="about" class="active">
       <h2>Welcome to Your Art Course!</h2>
-      <p>This is the welcome section. Add more content here.</p>
+      <p>I'm Mrs. Watts, your art teacher this year. I've been with Agora since 2016 and teaching since 2003. I hold certifications in Art Education K-12 and Business Technology K-12 and am experienced with online learning.</p>
+      <p>Art is not just about creating beautiful things—it's about expressing yourself, thinking creatively, and seeing the world through new perspectives. This year, we'll explore various techniques, study art history, and most importantly, discover your unique artistic voice.</p>
+      <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=1350&q=80" alt="Art Supplies" />
     </section>
+
     <section id="contact">
-      <h2>Contact Information</h2>
-      <p>Email: bwatts@agoracyber.net</p>
+      <h2>Contacting Mrs. Watts</h2>
+      <div class="contact-info">
+        <ul>
+          <li><strong>📧 Email:</strong> <a href="mailto:bwatts@agoracyber.net">bwatts@agoracyber.net</a></li>
+          <li><strong>📞 Phone:</strong> 610-230-3245</li>
+          <li><strong>📅 Meetings:</strong> By appointment</li>
+          <li><strong>💬 Course Messaging System:</strong> Email preferred</li>
+          <li><strong>🎓 Course Name:</strong> ART010A_FineArt_4</li>
+        </ul>
+      </div>
+      <p>I'm here to help you succeed! Don't hesitate to reach out if you have questions or need clarification.</p>
     </section>
+
     <section id="course">
-      <h2>Course Info</h2>
-      <p>Details about the course structure.</p>
+      <h2>About the Course</h2>
+      <p>This rigorous, fast-paced yearlong course (ART010 - Fine Art) for grades 11-12 blends art history with studio projects. Prior knowledge of art vocabulary and methods is expected. Foundations of Art or World History recommended.</p>
+      
+      <p>Throughout this course, you'll explore various art movements, master different techniques, and create a diverse portfolio that showcases your growth as an artist. We'll journey through time, from ancient cave paintings to contemporary digital art, understanding how art reflects and shapes our world.</p>
+
+      <h3>🎨 Supplies Needed</h3>
+      <ul>
+        <li>Paint & brushes (acrylic or watercolor)</li>
+        <li>Clay or play dough for sculpting</li>
+        <li>Markers, crayons, or colored pencils</li>
+        <li>Paper, pencils, erasers</li>
+        <li>A creative spirit and open mind!</li>
+      </ul>
     </section>
+
     <section id="daily">
-      <h2>Daily Tasks</h2>
-      <p>Checklist for daily expectations.</p>
+      <h2>Daily Student Responsibilities</h2>
+      <p>Art, like any other class requires daily work and dedication. Daily you should:</p>
+      <ul>
+        <li>Read announcements and stay informed</li>
+        <li>Check calendar for assignments and deadlines</li>
+        <li>Respond to emails</li>
+        <li>Review gradebook for missing work</li>
+        <li>Submit assignments via course tools</li>
+        <li>Reply to 2 peer discussion posts</li>
+        <li>Complete all lessons daily</li>
+      </ul>
     </section>
+
     <section id="grading">
-      <h2>Grading Policy</h2>
-      <p>Late policy and grading expectations.</p>
+      <h2>Grading Policy & Work Completion</h2>
+      <p><strong>Grading Policy and Work Completion</strong></p>
+      <p><em>Late Work Policy – Student Handbook Pg. 21</em></p>
+      <p>"All graded assignments – whether teacher- or electronically-scored – will be given a due date within the course and will be visible in the Class Plan and also in the PEAK dashboard. The consequences of submitting work after the due date is determined by each teacher. Teachers will post their late policy in the course and communicate and explain it to students at the beginning of the course."</p>
+      
+      <p>Work in this course is to be submitted on or before the due date passes. End-of-semester and school closings may affect unit/lesson closures so ensure you attend/view live classes for announcements and read all email correspondence regarding due dates.</p>
+      
+      <p>Late work will not be accepted. Unit and lesson close dates are hard dates.</p>
+      
+      <p><strong>Per Agora 2026 Policy:</strong></p>
+      <ul>
+        <li>All work will close permanently 2 weeks after the due date</li>
+        <li>Once a unit closes, it will not be reopened for work submission</li>
+        <li>Quizzes, reading checks, and tests will close at midnight on the date they are assigned</li>
+        <li>Quizzes and reading checks are due no later than the day they are assigned</li>
+      </ul>
     </section>
+
     <section id="plagiarism">
-      <h2>Academic Integrity</h2>
-      <p>Plagiarism policy and AI use guidelines.</p>
+      <h2>Academic Integrity & AI Use</h2>
+      <p><strong>Plagiarism Policy</strong></p>
+      <p>All submitted work must be original. First offense = 0 and instruction on proper citations. Second offense = referral to administration.</p>
+      
+      <p><strong>Academic Integrity and Use of AI</strong></p>
+      <p>All submitted work must be original and completed by the student. Plagiarism of any kind—including the use of copied text, images (in whole or in part), or ideas without proper citation—will not be tolerated. This includes AI-generated images or content. Students may not use artificial intelligence tools to complete assignments unless explicitly instructed to do so by the teacher. AI can be used for inspiration or brainstorming, but it must not replace the student's creative or academic efforts.</p>
+      
+      <p>The first offense of plagiarism or inappropriate AI use will result in a zero and instruction on proper citation. A second offense will result in a referral to school administration.</p>
     </section>
+
     <section id="resources">
-      <h2>Resources</h2>
-      <p>Helpful links and materials for the course.</p>
-    </section>
+      <section id="resources">
+  <h2>Resources</h2>
+  <p>Click any resource below to access the presentation with all course materials.</p>
+
+  <h3>🎨 Artist Statement Worksheets</h3>
+  <div class="resource-grid">
+    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
+      <h4>Artist Statement Worksheets</h4>
+      <p>Templates and guides for writing effective artist statements</p>
+    </a>
+  </div>
+
+  <h3>📚 Vocabulary & Reference Materials</h3>
+  <div class="resource-grid">
+    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
+      <h4>Elements of Art Vocabulary List</h4>
+      <p>Comprehensive list of essential art elements terminology</p>
+    </a>
+    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
+      <h4>Principles of Design Vocabulary List</h4>
+      <p>Key principles that guide artistic composition and design</p>
+    </a>
+    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
+      <h4>ART VOCAB Binder</h4>
+      <p>Complete vocabulary reference for art terms and concepts</p>
+    </a>
+  </div>
+
+  <h3>🌈 Color Theory Resources</h3>
+  <div class="resource-grid">
+    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
+      <h4>Color Worksheet</h4>
+      <p>Practice exercises for understanding color relationships</p>
+    </a>
+    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
+      <h4>Color Theory Cheat Sheet for Beginners</h4>
+      <p>Quick reference guide for color mixing and theory basics</p>
+    </a>
+  </div>
+
+  <h3>🔍 Art Criticism Resources</h3>
+  <div class="resource-grid">
+    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
+      <h4>The Art Critiquing Process - 4 Steps</h4>
+      <p>Step-by-step guide to analyzing and critiquing artwork</p>
+    </a>
+    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
+      <h4>Art in Focus - 4 Steps Art Criticism</h4>
+      <p>Detailed framework for structured art analysis</p>
+    </a>
+    <a href="https://docs.google.com/presentation/d/1PPRhz2CnQeOgXbpqlS1Ii_M16KjlrtK1EyAVqLFbWXo/edit?usp=sharing" target="_blank" class="resource-item">
+      <h4>Art in Focus - Elements and Principles</h4>
+      <p>Comprehensive guide to visual elements and design principles</p>
+    </a>
+  </div>
+</section>
+
+  
+
     <section id="extension">
-      <h2>Extension Request</h2>
-      <p>Submit your extension request here.</p>
+      <h2>Student Extension Request Form</h2>
+      <p>Life happens, and sometimes you need more time. Please fill out this form, then print or save it to email to me <em>before</em> the assignment is due.</p>
+      <form id="extensionForm">
+        <label>📅 Date:<br><input type="date" name="date" id="ext-date" required></label>
+        <label>👤 Student Name:<br><input type="text" name="student" id="ext-student" required></label>
+        <label>📝 Assignment Name:<br><input type="text" name="assignment" id="ext-assignment" required></label>
+        <label>💭 Reason for Request:<br><textarea name="reason" id="ext-reason" rows="4" required placeholder="Please explain your situation..."></textarea></label>
+        <label><input type="checkbox" name="help" id="ext-help"> I need help on this assignment</label>
+        <label><input type="checkbox" name="complete" id="ext-complete"> I can complete this assignment on my own</label>
+        <label>🎯 Planned Turn-in Date:<br><input type="date" name="turnin" id="ext-turnin" required></label>
+        <label>✍️ Digital Signature:<br><input type="text" name="signature" id="ext-signature" required placeholder="Type your full name"></label>
+        
+        <div class="print-save-buttons">
+          <button type="button" onclick="printForm()">🖨️ Print Form</button>
+          <button type="button" onclick="saveAsWord()">📄 Save as Word</button>
+          <button type="button" onclick="saveAsPDF()">📋 Save as PDF</button>
+        </div>
+      </form>
     </section>
+
     <section id="quiz">
       <h2>Syllabus Quiz</h2>
-      <p>Answer the questions to test your knowledge.</p>
+      <p>Test your knowledge of the syllabus! This helps ensure you understand the course expectations.</p>
+      <div class="quiz">
+        <div class="quiz-question">
+          <label>1. What is Mrs. Watts' email address?</label>
+          <input type="text" id="q1" placeholder="Enter email address" />
+        </div>
+        
+        <div class="quiz-question">
+          <label>2. What is the full course name?</label>
+          <input type="text" id="q2" placeholder="Enter course name" />
+        </div>
+        
+        <div class="quiz-question">
+          <label>3. Can you submit work by email? (yes/no)</label>
+          <input type="text" id="q3" placeholder="yes or no" />
+        </div>
+        
+        <div class="quiz-question">
+          <label>4. Are AI-generated images allowed in your artwork? (yes/no)</label>
+          <input type="text" id="q4" placeholder="yes or no" />
+        </div>
+        
+        <div class="quiz-question">
+          <label>5. How long after the due date will work close permanently?</label>
+          <input type="text" id="q5" placeholder="Enter time period" />
+        </div>
+        
+        <button onclick="gradeQuiz()" type="button" id="quiz-button">✨ Check My Answers</button>
+        <div id="quiz-feedback"></div>
+      </div>
     </section>
   </div>
 
   <script>
+    // Create animated particles
     function createParticles() {
       const particles = document.getElementById('particles');
       const particleCount = 50;
+      
       for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
@@ -173,16 +802,306 @@
       }
     }
 
-    function showTab(tabId, event) {
-      if (event) event.preventDefault();
+    // Tab switching with smooth transitions
+    function showTab(tabId) {
+      // Remove active class from all nav items
       document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-      if (event) event.target.classList.add('active');
-      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
+      
+      // Add active class to clicked nav item
+      event.target.classList.add('active');
+      
+      // Hide all sections
+      document.querySelectorAll('section').forEach(sec => {
+        sec.classList.remove('active');
+      });
+      
+      // Show selected section with delay for smooth transition
+      setTimeout(() => {
+        document.getElementById(tabId).classList.add('active');
+      }, 100);
     }
 
-    window.addEventListener('load', function () {
+    // Enhanced quiz functionality with better validation and feedback
+    function gradeQuiz() {
+      const answers = {
+        q1: {
+          correct: ['bwatts@agoracyber.net'],
+          explanation: 'Mrs. Watts\' email is bwatts@agoracyber.net'
+        },
+        q2: {
+          correct: ['art010 - fine art', 'art010a_fineart_4', 'fine art', 'art010'],
+          explanation: 'The course name is ART010 - Fine Art (also referenced as ART010A_FineArt_4)'
+        },
+        q3: {
+          correct: ['no'],
+          explanation: 'Work must be submitted via course tools, not by email'
+        },
+        q4: {
+          correct: ['no'],
+          explanation: 'AI-generated images are not allowed unless explicitly instructed by the teacher'
+        },
+        q5: {
+          correct: ['2 weeks', 'two weeks', '2 weeks after due date', 'two weeks after due date'],
+          explanation: 'Work closes permanently 2 weeks after the due date per Agora 2026 Policy'
+        }
+      };
+      
+      let score = 0;
+      let total = Object.keys(answers).length;
+      let detailedResults = [];
+      
+      // Clear previous styling
+      document.querySelectorAll('.quiz input').forEach(input => {
+        input.classList.remove('correct', 'incorrect');
+      });
+      
+      // Grade each question
+      for (const [questionId, answerData] of Object.entries(answers)) {
+        const userAnswer = document.getElementById(questionId).value.trim().toLowerCase();
+        const input = document.getElementById(questionId);
+        let isCorrect = false;
+        
+        // Check if user answer matches any of the correct answers
+        for (const correctAnswer of answerData.correct) {
+          if (userAnswer === correctAnswer.toLowerCase() || 
+              (questionId === 'q2' && userAnswer.includes('art010') && userAnswer.includes('fine art'))) {
+            isCorrect = true;
+            break;
+          }
+        }
+        
+        if (isCorrect) {
+          score++;
+          input.classList.add('correct');
+          detailedResults.push({
+            question: questionId,
+            correct: true,
+            userAnswer: document.getElementById(questionId).value.trim(),
+            explanation: answerData.explanation
+          });
+        } else {
+          input.classList.add('incorrect');
+          detailedResults.push({
+            question: questionId,
+            correct: false,
+            userAnswer: document.getElementById(questionId).value.trim(),
+            correctAnswer: answerData.correct[0],
+            explanation: answerData.explanation
+          });
+        }
+      }
+      
+      // Provide comprehensive feedback
+      const feedbackDiv = document.getElementById('quiz-feedback');
+      const button = document.getElementById('quiz-button');
+      
+      feedbackDiv.classList.remove('show', 'success', 'partial', 'fail');
+      
+      let feedback = '';
+      let feedbackClass = '';
+      
+      if (score === total) {
+        feedback = `🎉 Perfect Score! You got ${score} out of ${total} questions correct!`;
+        feedbackClass = 'success';
+        button.textContent = '🎨 Retake Quiz';
+      } else if (score >= Math.ceil(total * 0.6)) {
+        feedback = `👍 Good Job! You scored ${score} out of ${total}. Review the areas you missed and try again!`;
+        feedbackClass = 'partial';
+        button.textContent = '🔄 Try Again';
+      } else {
+        feedback = `📚 Keep Studying! You scored ${score} out of ${total}. Please review the syllabus carefully and retake the quiz.`;
+        feedbackClass = 'fail';
+        button.textContent = '📖 Study & Retry';
+      }
+      
+      // Create detailed results
+      let resultsHTML = `
+        <div class="quiz-results">
+          <h4>Detailed Results:</h4>
+          <ul>
+      `;
+      
+      const questionLabels = {
+        q1: "Mrs. Watts' email address",
+        q2: "Course name",
+        q3: "Submit work by email",
+        q4: "AI-generated images allowed",
+        q5: "Work closure time period"
+      };
+      
+      detailedResults.forEach(result => {
+        const questionLabel = questionLabels[result.question];
+        if (result.correct) {
+          resultsHTML += `<li><strong>${questionLabel}:</strong> <span class="correct-answer">✓ Correct</span> - ${result.explanation}</li>`;
+        } else {
+          resultsHTML += `<li><strong>${questionLabel}:</strong> <span class="incorrect-answer">✗ Incorrect</span><br>
+                         Your answer: "${result.userAnswer}"<br>
+                         Correct answer: "${result.correctAnswer}"<br>
+                         ${result.explanation}</li>`;
+        }
+      });
+      
+      resultsHTML += `</ul></div>`;
+      
+      feedbackDiv.innerHTML = feedback + resultsHTML;
+      feedbackDiv.classList.add(feedbackClass);
+      feedbackDiv.classList.add('show');
+      
+      // Scroll to feedback
+      feedbackDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Print and save functionality for extension form
+    function printForm() {
+      const formData = getFormData();
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Extension Request Form</title>
+            <style>
+              body { font-family: Arial, sans-serif; padding: 20px; }
+              h2 { color: #333; }
+              .form-field { margin-bottom: 15px; }
+              .form-field label { font-weight: bold; }
+              .form-field div { margin-top: 5px; }
+            </style>
+          </head>
+          <body>
+            <h2>Student Extension Request Form</h2>
+            <div class="form-field">
+              <label>Date:</label>
+              <div>${formData.date}</div>
+            </div>
+            <div class="form-field">
+              <label>Student Name:</label>
+              <div>${formData.student}</div>
+            </div>
+            <div class="form-field">
+              <label>Assignment Name:</label>
+              <div>${formData.assignment}</div>
+            </div>
+            <div class="form-field">
+              <label>Reason for Request:</label>
+              <div>${formData.reason}</div>
+            </div>
+            <div class="form-field">
+              <label>Help Needed:</label>
+              <div>${formData.help ? 'Yes, I need help on this assignment' : 'No'}</div>
+            </div>
+            <div class="form-field">
+              <label>Can Complete Independently:</label>
+              <div>${formData.complete ? 'Yes, I can complete this assignment on my own' : 'No'}</div>
+            </div>
+            <div class="form-field">
+              <label>Planned Turn-in Date:</label>
+              <div>${formData.turnin}</div>
+            </div>
+            <div class="form-field">
+              <label>Digital Signature:</label>
+              <div>${formData.signature}</div>
+            </div>
+            <br><br>
+            <p><strong>Instructions:</strong> Please email this completed form to bwatts@agoracyber.net</p>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.print();
+    }
+
+    function saveAsWord() {
+      const formData = getFormData();
+      const content = `
+Student Extension Request Form
+
+Date: ${formData.date}
+Student Name: ${formData.student}
+Assignment Name: ${formData.assignment}
+Reason for Request: ${formData.reason}
+Help Needed: ${formData.help ? 'Yes, I need help on this assignment' : 'No'}
+Can Complete Independently: ${formData.complete ? 'Yes, I can complete this assignment on my own' : 'No'}
+Planned Turn-in Date: ${formData.turnin}
+Digital Signature: ${formData.signature}
+
+Instructions: Please email this completed form to bwatts@agoracyber.net
+      `;
+      
+      const blob = new Blob([content], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Extension_Request_Form.doc';
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function saveAsPDF() {
+      const formData = getFormData();
+      const content = `
+Student Extension Request Form
+
+Date: ${formData.date}
+Student Name: ${formData.student}
+Assignment Name: ${formData.assignment}
+Reason for Request: ${formData.reason}
+Help Needed: ${formData.help ? 'Yes, I need help on this assignment' : 'No'}
+Can Complete Independently: ${formData.complete ? 'Yes, I can complete this assignment on my own' : 'No'}
+Planned Turn-in Date: ${formData.turnin}
+Digital Signature: ${formData.signature}
+
+Instructions: Please email this completed form to bwatts@agoracyber.net
+      `;
+      
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Extension_Request_Form.txt';
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function getFormData() {
+      return {
+        date: document.getElementById('ext-date').value,
+        student: document.getElementById('ext-student').value,
+        assignment: document.getElementById('ext-assignment').value,
+        reason: document.getElementById('ext-reason').value,
+        help: document.getElementById('ext-help').checked,
+        complete: document.getElementById('ext-complete').checked,
+        turnin: document.getElementById('ext-turnin').value,
+        signature: document.getElementById('ext-signature').value
+      };
+    }
+
+    // Add loading animations
+    window.addEventListener('load', function() {
       createParticles();
+      
+      // Stagger the loading animations
+      setTimeout(() => {
+        document.querySelectorAll('.loading').forEach((el, index) => {
+          setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+          }, index * 200);
+        });
+      }, 100);
+    });
+
+    // Add smooth scrolling and other enhancements
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add hover effects to images
+      document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('mouseenter', function() {
+          this.style.filter = 'brightness(1.1) saturate(1.2)';
+        });
+        
+        img.addEventListener('mouseleave', function() {
+          this.style.filter = 'brightness(1) saturate(1)';
+        });
+      });
     });
   </script>
 </body>
