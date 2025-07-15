@@ -689,10 +689,11 @@
       <h2>Syllabus Quiz</h2>
       <p>Test your knowledge of the syllabus! This helps ensure you understand the course expectations.</p>
       <div class="quiz">
-        <label>1. What is Mrs. Watts' email address?<br><input type="text" id="q1" placeholder="Enter email address" /></label>
-        <label>2. What is the full course name?<br><input type="text" id="q2" placeholder="Enter course name" /></label>
-        <label>3. Can you submit work by email? (yes/no)<br><input type="text" id="q3" placeholder="yes or no" /></label>
-        <label>4. Are AI-generated images allowed in your artwork? (yes/no)<br><input type="text" id="q4" placeholder="yes or no" /></label>
+       <br> <label>1. What is Mrs. Watts' email address?<br><input type="text" id="q1" placeholder="Enter email address" /></label>
+        <label><br>2. What is the full course name?<br><input type="text" id="q2" placeholder="Enter course name" /></label>
+        <label><br>3. Can you submit work by email? (yes/no)<br><input type="text" id="q3" placeholder="yes or no" /></label>
+         <label><br>4. Do you need art supplies for the class? (yes/no)<br><input type="text" id="q3" placeholder="yes or no" /></label>
+        <label><br>5. Are AI-generated images allowed in your artwork? (yes/no)<br><input type="text" id="q4" placeholder="yes or no" /></label>
         <button onclick="gradeQuiz()" type="button">✨ Check My Answers</button>
         <div id="quiz-feedback"></div>
       </div>
@@ -741,7 +742,8 @@
         q1: 'bwatts@agoracyber.net',
         q2: 'Fine Art',
         q3: 'no',
-        q4: 'no'
+        q4: 'yes'
+        q5: 'no'
       };
       
       let score = 0;
