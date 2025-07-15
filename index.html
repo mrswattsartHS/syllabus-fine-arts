@@ -671,11 +671,14 @@
     <section id="quiz">
       <h2>Syllabus Quiz</h2>
       <p>Test your knowledge of the syllabus! This helps ensure you understand the course expectations.</p>
+      </p>Try your best and retake until you get a perfect score.</p>
       <div class="quiz">
         <label>1. What is Mrs. Watts' email address?<br><input type="text" id="q1" placeholder="Enter email address" /></label>
         <label>2. What is the full course name?<br><input type="text" id="q2" placeholder="Enter course name" /></label>
         <label>3. Can you submit work by email? (yes/no)<br><input type="text" id="q3" placeholder="yes or no" /></label>
         <label>4. Are AI-generated images allowed in your artwork? (yes/no)<br><input type="text" id="q4" placeholder="yes or no" /></label>
+                <label>5. Are you permitted to use digital programs for the class? HINT: you need paper, pencil, and someting to color with for the class. (yes/no)<br><input type="text" id="q4" placeholder="yes or no" /></label>
+
         <button onclick="gradeQuiz()" type="button">✨ Check My Answers</button>
         <div id="quiz-feedback"></div>
       </div>
@@ -725,6 +728,7 @@
         q2: 'Fine Art',
         q3: 'no',
         q4: 'no'
+        q4: 'no'
       };
       
       let score = 0;
@@ -747,7 +751,7 @@
       feedbackDiv.classList.remove('show', 'success', 'partial');
       
       if (score === total) {
-        feedback = `🎉 Perfect! You scored ${score} out of ${total}! You're ready to create amazing art!`;
+        feedback = `🎉 Perfect! You scored ${score} out of ${total}! You're ready to start the course!`;
         feedbackDiv.classList.add('success');
       } else if (score >= total / 2) {
         feedback = `🎨 Good effort! You scored ${score} out of ${total}. Review the syllabus and try again!`;
