@@ -109,6 +109,22 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+    .print-save-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .print-save-buttons button {
+      background: linear-gradient(135deg, #00b894, #00a085);
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
@@ -168,19 +184,23 @@
     <section id="artiststatement">
       <h2>Write Your Artist Statement</h2>
       <p>Use this graphic organizer to plan and draft your artist statement. Your statement tells who you are as an artist, what your work expresses, and what influences your creative process.</p>
-      <form>
-        <label>Paragraph I: Why do you create art? What values or goals guide your work?<br>
-          <textarea rows="4" placeholder="I create art because..."></textarea>
+      <form id="artistStatementForm">
+        <label>Paragraph I: Why do you create art? What values or goals guide your work?
+          <textarea rows="4" id="para1" placeholder="I create art because..."></textarea>
         </label>
-        <label>Paragraph II: Describe your work, style, medium, or use of the elements and principles.<br>
-          <textarea rows="4" placeholder="My artwork typically features..."></textarea>
+        <label>Paragraph II: Describe your work, style, medium, or use of the elements and principles.
+          <textarea rows="4" id="para2" placeholder="My artwork typically features..."></textarea>
         </label>
-        <label>Paragraph III: What influences or themes appear in your art? Wrap up your statement.<br>
-          <textarea rows="4" placeholder="My art is inspired by..."></textarea>
+        <label>Paragraph III: What influences or themes appear in your art? Wrap up your statement.
+          <textarea rows="4" id="para3" placeholder="My art is inspired by..."></textarea>
         </label>
-        <label>Final Draft:<br>
-          <textarea rows="8" placeholder="Now combine your answers into a full artist statement..."></textarea>
+        <label>Final Draft:
+          <textarea rows="8" id="finalDraft" placeholder="Now combine your answers into a full artist statement..."></textarea>
         </label>
+        <div class="print-save-buttons">
+          <button type="button" onclick="printArtistStatement()">🖨️ Print Statement</button>
+          <button type="button" onclick="saveArtistStatementAsWord()">📄 Save as Word</button>
+        </div>
       </form>
     </section>
     <section id="quiz">
@@ -210,6 +230,25 @@
       if (event) event.target.classList.add('active');
       document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
+    }
+
+    function printArtistStatement() {
+      const finalDraft = document.getElementById('finalDraft').value;
+      const win = window.open('', '_blank');
+      win.document.write(`<html><head><title>Artist Statement</title></head><body><h2>Artist Statement</h2><p>${finalDraft.replace(/\n/g, '<br>')}</p></body></html>`);
+      win.document.close();
+      win.print();
+    }
+
+    function saveArtistStatementAsWord() {
+      const text = document.getElementById('finalDraft').value;
+      const blob = new Blob([text], { type: 'application/msword' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'Artist_Statement.doc';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
 
     window.addEventListener('load', function () {
