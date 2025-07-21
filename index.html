@@ -1,943 +1,1028 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Art Syllabus - Mrs. Watts</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Baroque & Beyond - Interactive Study Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <style>
+        /* CSS Reset and Base Styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: #333;
-      overflow-x: hidden;
-    }
+        :root {
+            --primary-color: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary-color: #06d6a0;
+            --accent-color: #f72585;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --light-bg: #faf7ff;
+            --white: #ffffff;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+            --border-radius: 16px;
+            --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 20px rgba(139, 92, 246, 0.2);
+            --shadow-heavy: 0 8px 30px rgba(139, 92, 246, 0.3);
+            --transition: all 0.3s ease;
+        }
 
-    /* Animated background particles */
-    .particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
 
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      animation: float 6s infinite ease-in-out;
-    }
+        .skip-link:focus {
+            top: 6px;
+        }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
-      50% { transform: translateY(-20px) rotate(180deg); opacity: 0.3; }
-    }
+        /* Base styles */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #e0e7ff 50%, #fce7f3 100%);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
 
-    /* Header with glassmorphism effect */
-    header {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-      position: relative;
-      z-index: 10;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
 
-    header h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-      animation: slideDown 0.8s ease-out;
-    }
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            margin: 2rem 0;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 4px rgba(139, 92, 246, 0.3);
+        }
 
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.9;
-      animation: slideUp 0.8s ease-out 0.2s both;
-    }
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--primary-dark);
+        }
 
-    @keyframes slideDown {
-      from { transform: translateY(-50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
+        h3 {
+            font-size: 1.25rem;
+            color: var(--primary-dark);
+        }
 
-    @keyframes slideUp {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
+        /* Layout */
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
 
-    /* Navigation with hover effects */
-    nav {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      display: flex;
-      justify-content: center;
-      gap: 5px;
-      padding: 15px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      flex-wrap: wrap;
-    }
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem 4rem;
+        }
 
-    nav a {
-      color: #333;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 12px 20px;
-      border-radius: 25px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      background: transparent;
-    }
+        /* Print Button */
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: var(--shadow-medium);
+            transition: var(--transition);
+            z-index: 1000;
+        }
 
-    nav a::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-      transition: left 0.5s;
-    }
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-heavy);
+        }
 
-    nav a:hover {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-    }
+        @media print {
+            .print-button, #glitter-container, .trail-dot {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+            }
+        }
 
-    nav a:hover::before {
-      left: 100%;
-    }
+        /* Navigation */
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
 
-    nav a.active {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-    }
+        .nav-menu a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.7);
+        }
 
-    /* Content container */
-    .content-container {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      margin: 40px 20px;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      position: relative;
-      z-index: 10;
-    }
+        .nav-menu a:hover,
+        .nav-menu a:focus {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
 
-    section {
-      display: none;
-      padding: 40px;
-      max-width: 1000px;
-      margin: auto;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.5s ease-out;
-    }
+        /* Glitter animation */
+        #glitter-container {
+            position: fixed;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1000;
+        }
 
-    section.active {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
+        .glitter {
+            position: absolute;
+            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #fff, rgba(255, 255, 255, 0));
+            box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.8);
+            animation: glitterRise linear forwards;
+            opacity: 0;
+        }
 
-    h2 {
-      color: #667eea;
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      position: relative;
-      display: inline-block;
-    }
+        @keyframes glitterRise {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-120px) scale(0.2) rotate(360deg);
+            }
+        }
 
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      border-radius: 2px;
-      animation: expandLine 0.8s ease-out 0.5s both;
-    }
+        /* Question blocks */
+        .question-block {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
 
-    @keyframes expandLine {
-      from { width: 0; }
-      to { width: 100%; }
-    }
+        .question-block:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-heavy);
+            transform: translateY(-2px);
+        }
 
-    h3 {
-      color: #764ba2;
-      font-size: 1.5rem;
-      margin: 25px 0 15px 0;
-    }
+        .question-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
 
-    p {
-      line-height: 1.7;
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-    }
+        .artwork {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.05), rgba(6, 214, 160, 0.05));
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
 
-    ul {
-      margin-left: 20px;
-      margin-bottom: 20px;
-    }
+        /* Response buttons */
+        .responses {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
 
-    li {
-      margin-bottom: 10px;
-      padding-left: 10px;
-      position: relative;
-      line-height: 1.6;
-    }
+        .response {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            text-align: left;
+            font-size: 1rem;
+            width: 100%;
+        }
 
-    li::before {
-      content: '✨';
-      position: absolute;
-      left: -20px;
-      color: #667eea;
-    }
+        .response:hover:not(.correct):not(.incorrect) {
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(247, 37, 133, 0.1));
+            border-color: var(--primary-color);
+            transform: translateX(4px);
+        }
 
-    /* Image styling */
-    img {
-      max-width: 100%;
-      height: auto;
-      margin: 20px 0;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
-    }
+        .response:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
 
-    img:hover {
-      transform: scale(1.05);
-    }
+        .response.correct {
+            background: linear-gradient(45deg, #d1fae5, #a7f3d0) !important;
+            border-color: var(--success-color) !important;
+            color: #065f46;
+            cursor: default;
+        }
 
-    /* Form styling */
-    form {
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      padding: 30px;
-      border-radius: 15px;
-      margin: 20px 0;
-      box-shadow: 0 10px 25px rgba(240, 147, 251, 0.3);
-    }
+        .response.incorrect {
+            background: linear-gradient(45deg, #fee2e2, #fecaca) !important;
+            border-color: var(--error-color) !important;
+            color: #991b1b;
+            cursor: default;
+        }
 
-    form label {
-      display: block;
-      margin-bottom: 15px;
-      color: white;
-      font-weight: 600;
-    }
+        .feedback {
+            margin-left: 10px;
+            font-weight: 700;
+        }
 
-    form input, form textarea {
-      width: 100%;
-      padding: 12px 15px;
-      border: none;
-      border-radius: 8px;
-      margin-top: 5px;
-      font-size: 1rem;
-      background: rgba(255, 255, 255, 0.9);
-      transition: all 0.3s ease;
-    }
+        /* Matching game */
+        .matching-block {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-medium);
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 900px;
+        }
 
-    form input:focus, form textarea:focus {
-      outline: none;
-      background: white;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-      transform: translateY(-2px);
-    }
+        .match-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
 
-    form button {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 25px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 20px;
-    }
+        .match-list {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(6, 214, 160, 0.05));
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
 
-    form button:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-    }
+        .match-list h3 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
 
-    form button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+        .match-item {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            text-align: left;
+            width: 100%;
+        }
 
-    /* Quiz styling */
-    .quiz {
-      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-      padding: 30px;
-      border-radius: 15px;
-      margin: 20px 0;
-    }
+        .match-item:hover:not(.matched) {
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(247, 37, 133, 0.1));
+            border-color: var(--primary-color);
+            transform: translateX(3px);
+        }
 
-    .quiz input {
-      margin-bottom: 15px;
-      padding: 12px 15px;
-      border: 2px solid transparent;
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-    }
+        .match-item.selected {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border-color: var(--primary-dark);
+        }
 
-    .quiz input:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
-    }
+        .match-item.matched {
+            background: linear-gradient(45deg, #d1fae5, #a7f3d0);
+            border-color: var(--success-color);
+            color: #065f46;
+            cursor: default;
+        }
 
-    .quiz button {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 25px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
+        .match-result {
+            margin-top: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            min-height: 30px;
+            font-size: 1.1rem;
+        }
 
-    .quiz button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-    }
+        /* Flashcards */
+        #flashcards {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
 
-    #quiz-feedback {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 10px;
-      font-weight: 600;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.5s ease;
-    }
+        .instructions {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
 
-    #quiz-feedback.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+        .flashcard {
+            cursor: pointer;
+            perspective: 1100px;
+            max-width: 600px;
+            margin: 2rem auto;
+            height: 150px;
+        }
 
-    #quiz-feedback.success {
-      background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-      color: #2d5a27;
-    }
+        .flashcard:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 4px;
+            border-radius: var(--border-radius);
+        }
 
-    #quiz-feedback.partial {
-      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-      color: #8b4513;
-    }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            box-shadow: var(--shadow-medium);
+            border-radius: var(--border-radius);
+            border: 2px solid transparent;
+        }
 
-    /* Contact info styling */
-    .contact-info {
-      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-      padding: 25px;
-      border-radius: 15px;
-      margin: 20px 0;
-    }
+        .flashcard:hover .flashcard-inner {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-heavy);
+        }
 
-    .contact-info li {
-      background: rgba(255, 255, 255, 0.3);
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 10px;
-      backdrop-filter: blur(5px);
-      transition: transform 0.3s ease;
-    }
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
 
-    .contact-info li:hover {
-      transform: translateX(10px);
-    }
+        .flashcard-front,
+        .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            line-height: 1.4;
+        }
 
-    .contact-info a {
-      color: #8b4513;
-      text-decoration: none;
-      font-weight: 600;
-    }
+        .flashcard-front {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+        }
 
-    .contact-info a:hover {
-      text-decoration: underline;
-    }
+        .flashcard-back {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(224, 231, 255, 0.8));
+            color: var(--text-dark);
+            transform: rotateY(180deg);
+            border: 2px solid var(--secondary-color);
+        }
 
-    /* Resource grid styling */
-    .resource-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
+        /* Answer key */
+        .answer-key {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.1));
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-medium);
+            max-width: 800px;
+            margin: 3rem auto;
+            border: 2px solid var(--warning-color);
+        }
 
-    .resource-item {
-      background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-    }
+        .answer-key h2 {
+            color: #92400e;
+            margin-bottom: 1.5rem;
+        }
 
-    .resource-item:hover {
-      transform: translateY(-5px);
-    }
+        .answer-key dl {
+            margin: 0;
+        }
 
-    .resource-item h4 {
-      color: #2d3436;
-      margin-bottom: 10px;
-      font-size: 1.1rem;
-    }
+        .answer-key dt {
+            font-weight: 700;
+            color: #78350f;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
 
-    .resource-item p {
-      color: #636e72;
-      font-size: 0.9rem;
-      margin-bottom: 0;
-    }
+        .answer-key dd {
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+            color: #78350f;
+        }
 
-    /* Print button styling */
-    .print-save-buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
+        /* Enhanced Mouse trail */
+        .trail-dot {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            width: 12px;
+            height: 12px;
+            opacity: 0.8;
+            animation: sparkleTrail 1.5s forwards;
+            z-index: 999;
+            box-shadow: 0 0 20px 5px currentColor;
+        }
 
-    .print-save-buttons button {
-      background: linear-gradient(135deg, #00b894, #00a085);
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 20px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 0.9rem;
-    }
+        @keyframes sparkleTrail {
+            0% {
+                opacity: 0.8;
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.3) rotate(360deg);
+            }
+        }
 
-    .print-save-buttons button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 184, 148, 0.3);
-    }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .match-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            .question-block,
+            .matching-block {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .flashcard {
+                height: 120px;
+                margin: 1.5rem auto;
+            }
+            
+            .flashcard-front,
+            .flashcard-back {
+                font-size: 1rem;
+            }
 
-    /* Responsive design */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      
-      header p {
-        font-size: 1rem;
-      }
-      
-      nav {
-        padding: 10px;
-      }
-      
-      nav a {
-        padding: 10px 15px;
-        font-size: 0.9rem;
-      }
-      
-      section {
-        padding: 20px;
-      }
-      
-      h2 {
-        font-size: 2rem;
-      }
-      
-      .content-container {
-        margin: 20px 10px;
-      }
-    }
-
-    /* Loading animation */
-    .loading {
-      opacity: 0;
-      animation: fadeIn 0.5s ease-out forwards;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-  </style>
+            .print-button {
+                top: 10px;
+                right: 10px;
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Animated background particles -->
-  <div class="particles" id="particles"></div>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Print Button -->
+    <button class="print-button" onclick="window.print()">🖨️ Print Study Guide</button>
+    
+    <!-- Glitter container -->
+    <div id="glitter-container" aria-hidden="true"></div>
 
-  <header class="loading">
-    <h1>🎨 Art with Mrs. Watts</h1>
-    <p>Welcome to Art!</p>
-  </header>
+    <header>
+        <h1 id="main-content">Baroque & Beyond: Interactive Art History Study Guide</h1>
+        <nav aria-label="Study sections">
+            <ul class="nav-menu">
+                <li><a href="#multiple-choice">Multiple Choice</a></li>
+                <li><a href="#matching-game">Matching Game</a></li>
+                <li><a href="#flashcards">Flashcards</a></li>
+                <li><a href="#answer-key">Answer Key</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <nav class="loading">
-    <a onclick="showTab('about')" class="active">Welcome</a>
-    <a onclick="showTab('contact')">Contact</a>
-    <a onclick="showTab('course')">Course Info</a>
-    <a onclick="showTab('daily')">Daily Tasks</a>
-    <a onclick="showTab('grading')">Grading Policy</a>
-    <a onclick="showTab('plagiarism')">Academic Integrity</a>
-    <a onclick="showTab('resources')">Resources</a>
-    <a onclick="showTab('extension')">Extension Request</a>
-    <a onclick="showTab('quiz')">Quiz</a>
-  </nav>
+    <main>
+        <!-- Multiple Choice Questions -->
+        <section id="multiple-choice" aria-labelledby="mc-heading">
+            <h2 id="mc-heading">Multiple Choice Questions</h2>
+            
+            <article class="question-block" data-question="1">
+                <h3>Bernini's David</h3>
+                <div class="question-title">What Italian Baroque characteristic does David by Gianlorenzo Bernini exhibit?</div>
+                <div class="artwork">David, sculpture by Gian Lorenzo Bernini, showing David in the act of throwing stone</div>
+                <div class="responses" role="radiogroup" aria-labelledby="q1-title">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">The sculpture engages the viewer by breaking into the viewer's space.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The sculpture makes a complete departure from Classical and Renaissance sculpture.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The sculpture's main purpose was to idealize the beauty of the human form.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The sculpture's pose and facial features are calm and reserved.</button>
+                </div>
+            </article>
 
-  <div class="content-container loading">
-    <section id="about" class="active">
-      <h2>Welcome to Your Art Course!</h2>
-      <p>I'm Mrs. Watts, your art teacher this year. 
-        I've been with Agora since 2016 and teaching since 2003. 
-        I hold certifications in Art Education K-12 and Business Technology K-12.</p>
-      <p>This year, we'll explore various techniques, study art history, and techniques.</p>
-      <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTRRkWXf0K3XWyzF1nz-bioVwtqSUKqUXPqdoLbDn84NxMMhzkbw5xKjhtfJQ_ydX7uJJM5vxMDbXwq/pubembed?start=true&loop=true&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=1350&q=80" alt="Art Supplies" />
-    </section>
+            <article class="question-block" data-question="2">
+                <h3>Caravaggio's Style</h3>
+                <div class="question-title">Which is an accurate statement about Italian Baroque artist Caravaggio's approach to painting?</div>
+                <div class="artwork">Calling of Saint Matthew by Michelangelo Merisi da Caravaggio</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">Caravaggio created dramatic compositions that focus on realism.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Caravaggio focused on depicting narrative historical themes.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Caravaggio painted religious scenes with idealized figures.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Caravaggio used foreshortening to depict a sense of flattened space.</button>
+                </div>
+            </article>
 
-    <section id="contact">
-      <h2>Contacting Mrs. Watts</h2>
-      <div class="contact-info">
-        <ul>
-          <li><strong>📧 Email:</strong> <a href="mailto:bwatts@agoracyber.net">bwatts@agoracyber.net</a></li>
-          <li><strong>📞 Phone:</strong> 610-230-3245</li>
-          <li><strong>📅 Meetings:</strong> By appointment</li>
-          <li><strong>💬 Course Messaging System:</strong> Email preferred</li>
-          <li><strong>🎓 Course Name:</strong> ART010A_FineArt</li>
-        </ul>
-      </div>
-      <p>I'm here to help you succeed! Don't hesitate to reach out if you have questions or need clarification.</p>
-    </section>
+            <article class="question-block" data-question="3">
+                <h3>Lighting Techniques</h3>
+                <div class="question-title">What innovative and extreme lighting technique did Italian Baroque artist Caravaggio use in his paintings?</div>
+                <div class="artwork">The Conversion of Saint Paul by Caravaggio</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">Tenebrism</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Contrapposto</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Atmospheric perspective</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Foreshortening</button>
+                </div>
+            </article>
 
-    <section id="course">
-      <h2>About the Course:FINE ART</h2>
-      <p>This course is developed for highly motivated students genuinely interested in studying art. The yearlong course demands a significant commitment and combines art history, appreciation, and analysis with hands-on studio-based art projects. It is geared towards students who are committed to the practical experience of visual art. Lessons introduce periods and movements in art history, focusing on masterworks and the intellectual, technical, and creative processes behind them. Several studio lessons provide opportunities for hands-on creative endeavors. Students should have foundational art skills and knowledge of the Elements of Art, Principles of Design, and Feldman’s 4 steps of art analysis. This course is labor intensive and requires a yearlong commitment.
-</p>
-      
-      <p>Throughout this course, you'll explore various art movements, master different techniques, and create a diverse portfolio that showcases your growth as an artist. We'll journey through time, from ancient cave paintings to contemporary digital art, understanding how art reflects and shapes our world.</p>
+            <article class="question-block" data-question="4">
+                <h3>Poussin's Painting Traits</h3>
+                <div class="question-title">Which phrase best describes a characteristic of the paintings of French Baroque artist Nicolas Poussin?</div>
+                <div class="artwork">Landscape with the Burial of Phocion by Nicolas Poussin</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">The depiction of a narrative subject within an organized, idealized landscape</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The depiction of figures and landscapes from the artist's imagination</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The rejection of Classical Greek and Roman figurative and landscape ideals</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The nearly photographic recording of figures within a landscape</button>
+                </div>
+            </article>
 
-      <h3>🎨 Supplies Needed</h3>
-      <ul>
-        <li>Paint & brushes (acrylic or watercolor)</li>
-        <li>Clay or play dough for sculpting</li>
-        <li>Markers, crayons, or colored pencils</li>
-        <li>Paper, pencils, erasers</li>
-        <li>A creative spirit and open mind!</li>
-      </ul>
-      <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTRRkWXf0K3XWyzF1nz-bioVwtqSUKqUXPqdoLbDn84NxMMhzkbw5xKjhtfJQ_ydX7uJJM5vxMDbXwq/pubembed?start=true&loop=true&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-    </section>
+            <article class="question-block" data-question="5">
+                <h3>Notre-Dame-du-Haut by Le Corbusier</h3>
+                <div class="question-title">How does Notre-Dame-du-Haut by Le Corbusier exhibit sculptural qualities?</div>
+                <div class="artwork">Chapel of Notre Dame du Haut in Ronchamp, Franco-Swiss architecture by Le Corbusier</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">It incorporates Le Corbusier's sculptures into niches in the chapel walls.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">It is designed with sinuous rock walls to surround the chapel.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">It uses right angles throughout the structure.</button>
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">It has an upswept roof shape formed by using sprayed concrete.</button>
+                </div>
+            </article>
 
-    <section id="daily">
-      <h2>Daily Student Responsibilities</h2>
-      <h1>Fine Arts and Foundations of Art</h1>
-      <p>Art, like any other class requires daily work and dedication. Daily you should:</p>
-      <ul>
-        <li>Read announcements and stay informed</li>
-        <li>Check calendar for assignments and deadlines</li>
-        <li>Respond to emails</li>
-        <li>Review gradebook for missing work</li>
-        <li>Submit assignments via course tools</li>
-        <li>Check and reply to peers daily on discussion posts</li>
-        <li>Come to class and participate everyday. You will be on webcam for art to show your artwork to the teacher and your virtual tablemates.</li>
-      </ul>
-      <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSLQT5JMKYfC41kmiDi0udsIeuHGxbAJGVxpbgdHYqjZnquGDsHtr5H7HbiOAGa5w/pubembed?start=false&loop=false&delayms=3000" frameborder="0" width="1280" height="749" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-      https://docs.google.com/presentation/d/e/2PACX-1vSLQT5JMKYfC41kmiDi0udsIeuHGxbAJGVxpbgdHYqjZnquGDsHtr5H7HbiOAGa5w/pub?start=true&loop=true&delayms=3000
-    </section>
+            <article class="question-block" data-question="6">
+                <h3>Georges Pompidou Center</h3>
+                <div class="question-title">Why did Modernist architects Richard Rogers and Renzo Piano place the escalator outside the Georges Pompidou National Center of Art and Culture?</div>
+                <div class="artwork">Georges Pompidou Center, cultural center in Paris, France</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">To make the interior space larger and to add an interesting design element.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">To help save on heating and cooling costs.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">To move people into and out of the building more quickly.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">To make the escalator easier to service.</button>
+                </div>
+            </article>
 
-    <section id="grading">
-      <h2>Grading Policy & Work Completion</h2>
-      <p><strong>Grading Policy and Work Completion</strong></p>
-      <p><em>Late Work Policy – Student Handbook</em></p>
-      <p>"All graded assignments – whether teacher- or electronically-scored – will be given a due date within the course and will be visible in the class calendar. 
-        The consequences of submitting work after the due date is determined by each teacher. 
-        Teachers will post their late policy in the course and communicate and explain it to students at the beginning of the course."</p>
-      
-      <p>Work in this course is to be submitted on or before the due date passes. End-of-semester and school closings may affect unit/lesson closures so ensure you attend/view live classes for announcements and read all email correspondence regarding due dates.</p>
-      
-      <p>Late work will not be accepted. Unit and lesson close dates are hard dates.</p>
-      
-      <p><strong>Per Agora 2026 Policy:</strong></p>
-      <ul>
-        <li>All work will close permanently 2 weeks after the due date</li>
-        <li>Once a unit closes, it will not be reopened for work submission</li>
-        <li>Quizzes, reading checks, and tests will close at midnight on the date they are assigned</li>
-        <li>Quizzes and reading checks are due no later than the day they are assigned</li>Assignment Submission
-Assignments sent by email will not be accepted. Submit quizzes and discussions in the course platform and reply to at least 2 peer posts. Ensure all daily work, including non-graded lessons, is completed.
+            <article class="question-block" data-question="7">
+                <h3>Modigliani's Head of a Woman</h3>
+                <div class="question-title">Which of the following is a characteristic of Modernist sculptor Amedeo Modigliani's Head of a Woman?</div>
+                <div class="artwork">Head of a Woman, sculpture by Amedeo Modigliani</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">The facial features are reduced to simple geometric shapes.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The pyramid configuration organizes the composition.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The detail markings on the head symbolize African folklore.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The strong diagonals add dimension and movement to the sculpture.</button>
+                </div>
+            </article>
 
-      </ul>
-    </section>
+            <article class="question-block" data-question="8">
+                <h3>Henry Moore's Mother and Child</h3>
+                <div class="question-title">What Modernist convention is reflected in Henry Moore's sculpture Mother and Child?</div>
+                <div class="artwork">Mother and Child, sculpture by Henry Moore</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">Moore uses abstracted, simplified, and exaggerated human forms.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Moore uses realistic proportions and detailed surface textures.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Moore incorporates Classical Greek and Roman ideals of beauty.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Moore creates a sense of movement through contrapposto.</button>
+                </div>
+            </article>
+        </section>
 
-    <section id="plagiarism">
-      <h2>Academic Integrity & AI Use</h2>
-      <p><strong>Plagiarism Policy</strong></p>
-      <p>All submitted work must be original. First offense = 0 and instruction on proper citations. Second offense = referral to administration.</p>
-      
-      <p><strong>Academic Integrity and Use of AI</strong></p>
-      <p>All submitted work must be original and completed by the student. Plagiarism of any kind—including the use of copied text, images (in whole or in part)AI generated text or images, or ideas without proper citation—will not be tolerated. This includes AI-generated images or content. Students may not use artificial intelligence tools to complete assignments unless explicitly instructed to do so by the teacher. AI can be used for inspiration or brainstorming, but it must not replace the student's creative or academic efforts.</p>
-      
-      <p>The first offense of plagiarism or inappropriate AI use will result in a zero and instruction on proper citation. A second offense will result in a referral to school administration.</p>
-    </section>
+        <!-- Matching Game -->
+        <section id="matching-game" class="matching-block" aria-labelledby="matching-heading">
+            <h2 id="matching-heading">Matching Game</h2>
+            <p>Click one item from the left column, then click the matching description on the right.</p>
+            <div class="match-container">
+                <div class="match-list" id="match-left">
+                    <h3>Artist/Term</h3>
+                    <button class="match-item" data-match="bernini" onclick="selectMatch(this, 'bernini')">Bernini</button>
+                    <button class="match-item" data-match="caravaggio" onclick="selectMatch(this, 'caravaggio')">Caravaggio</button>
+                    <button class="match-item" data-match="tenebrism" onclick="selectMatch(this, 'tenebrism')">Tenebrism</button>
+                    <button class="match-item" data-match="moore" onclick="selectMatch(this, 'moore')">Henry Moore</button>
+                    <button class="match-item" data-match="modigliani" onclick="selectMatch(this, 'modigliani')">Modigliani</button>
+                    <button class="match-item" data-match="value" onclick="selectMatch(this, 'value')">Value (Element of Art)</button>
+                </div>
+                <div class="match-list" id="match-right">
+                    <h3>Description</h3>
+                    <button class="match-item" data-match="bernini" onclick="selectMatch(this, 'bernini')">
+                        Baroque sculptor famous for dynamic, engaging sculptures like David.
+                    </button>
+                    <button class="match-item" data-match="tenebrism" onclick="selectMatch(this, 'tenebrism')">
+                        Extreme contrast between light and dark in painting.
+                    </button>
+                    <button class="match-item" data-match="value" onclick="selectMatch(this, 'value')">
+                        How light or dark a color or object appears in art.
+                    </button>
+                    <button class="match-item" data-match="caravaggio" onclick="selectMatch(this, 'caravaggio')">
+                        Painter known for realistic, dramatic lighting and compositions.
+                    </button>
+                    <button class="match-item" data-match="modigliani" onclick="selectMatch(this, 'modigliani')">
+                        Sculptor known for abstracting facial features into geometric shapes.
+                    </button>
+                    <button class="match-item" data-match="moore" onclick="selectMatch(this, 'moore')">
+                        Modernist sculptor who used simplified, abstracted forms, especially in mother and child themes.
+                    </button>
+                </div>
+            </div>
+            <div class="match-result" id="match-result" aria-live="polite"></div>
+        </section>
 
-    <section id="resources">
-      <h2>Resources</h2>
-      <p>Here are helpful resources and worksheets for our art course. Use the embedded Google links to download these materials to help with your assignments and projects.</p>
-      
-      <h3>🎨 Artist Statement Worksheets</h3>
-      <div class="resource-grid">
-        <div class="resource-item">
-          <h4>Artist Statement Worksheets</h4>
-          <iframe src="" width="100%" height="790px" frameBorder="0" style="border: 0;"></iframe><br>Brought to you by <a href="" target="_blank">https://mrswattsarths.github.io/Artist-Statement/</a>
-          <p>Templates and guides for writing effective artist statements</p>"https://mrswattsarths.github.io/Artist-Statement/"</P>
-        </div>
-      </div>
+        <!-- Flashcards -->
+        <section id="flashcards" aria-labelledby="flashcards-heading">
+            <h2 id="flashcards-heading">Flashcards Review</h2>
+            <p class="instructions">Click on each card to flip it and reveal the answer.</p>
+            
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: What is Tenebrism?">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">What is Tenebrism?</div>
+                    <div class="flashcard-back">
+                        A dramatic lighting technique using strong contrast between light and dark.
+                    </div>
+                </div>
+            </div>
 
-      <h3>📚 Vocabulary & Reference Materials</h3>
-      <div class="resource-grid">
-        <div class="resource-item">
-          <h4>Elements of Art Vocabulary List</h4>
-          <p>Comprehensive list of essential art elements terminology</p>
-        </div>
-        <div class="resource-item">
-          <h4>Principles of Design Vocabulary List</h4>
-          <p>Key principles that guide artistic composition and design</p>
-        </div>
-        <div class="resource-item">
-          <h4>ART VOCAB Binder</h4>
-          <p>Complete vocabulary reference for art terms and concepts</p>
-        </div>
-      </div>
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: Who created the sculpture of David in the Baroque period?">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Who created the sculpture of David in the Baroque period?</div>
+                    <div class="flashcard-back">Gianlorenzo Bernini</div>
+                </div>
+            </div>
 
-      <h3>🌈 Color Theory Resources</h3>
-      <div class="resource-grid">
-        <div class="resource-item">
-          <h4>Color Worksheet</h4>
-          <p>Practice exercises for understanding color relationships</p>
-        </div>
-        <div class="resource-item">
-          <h4>Color Theory Cheat Sheet for Beginners</h4>
-          <p>Quick reference guide for color mixing and theory basics</p>
-        </div>
-      </div>
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: Which element of art deals with lightness or darkness?">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Which element of art deals with the lightness or darkness of a color?</div>
+                    <div class="flashcard-back">Value</div>
+                </div>
+            </div>
 
-      <h3>🔍 Art Criticism Resources</h3>
-      <div class="resource-grid">
-        <div class="resource-item">
-          <h4>The Art Critiquing Process - 4 Steps</h4>
-          <p>Step-by-step guide to analyzing and critiquing artwork</p>
-        </div>
-        <div class="resource-item">
-          <h4>Art in Focus - 4 Steps Art Criticism</h4>
-          <p>Detailed framework for structured art analysis</p>
-        </div>
-        <div class="resource-item">
-          <h4>Art in Focus - Elements and Principles</h4>
-          <p>Comprehensive guide to visual elements and design principles</p>
-          <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQF0P0B9H8EDcW1J3VeYN48bym-AkT6Ixq0vQ4nUT-blTHEGST7AwR-4L68WeN1Gc2Cmr8Fygs1Mdo4/pubembed?start=true&loop=true&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-        </div>
-      </div>
-    </section>
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: What innovative lighting technique is Caravaggio known for?">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">What innovative lighting technique is Caravaggio known for?</div>
+                    <div class="flashcard-back">Tenebrism, the use of extreme contrasts between light and shadow.</div>
+                </div>
+            </div>
 
-    <section id="extension">
-      <h2>Student Extension Request Form</h2>
-      <p>Life happens, and sometimes you need more time. Please fill out this form, then print or save it to email to me <em>before</em> the assignment is due.</p>
-      <form id="extensionForm">
-        <label>📅 Date:<br><input type="date" name="date" id="ext-date" required></label>
-        <label>👤 Student Name:<br><input type="text" name="student" id="ext-student" required></label>
-        <label>📝 Assignment Name:<br><input type="text" name="assignment" id="ext-assignment" required></label>
-        <label>💭 Reason for Request:<br><textarea name="reason" id="ext-reason" rows="4" required placeholder="Please explain your situation..."></textarea></label>
-        <label><input type="checkbox" name="help" id="ext-help"> I need help on this assignment</label>
-        <label><input type="checkbox" name="complete" id="ext-complete"> I can complete this assignment on my own</label>
-        <label>🎯 Planned Turn-in Date:<br><input type="date" name="turnin" id="ext-turnin" required></label>
-        <label>✍️ Digital Signature:<br><input type="text" name="signature" id="ext-signature" required placeholder="Type your full name"></label>
-        
-        <div class="print-save-buttons">
-          <button type="button" onclick="printForm()">🖨️ Print Form</button>
-          <button type="button" onclick="saveAsWord()">📄 Save as Word</button>
-          <button type="button" onclick="saveAsPDF()">📋 Save as PDF</button>
-        </div>
-      </form>
-    </section>
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: Henry Moore's work characteristics">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Name one key characteristic of Modernist sculptor Henry Moore's work.</div>
+                    <div class="flashcard-back">Use of abstracted, simplified, and exaggerated human forms.</div>
+                </div>
+            </div>
 
-    <section id="quiz">
-      <h2>Syllabus Quiz</h2>
-      <p>Test your knowledge of the syllabus! 
-        This helps ensure you understand the course expectations. 
-        <p>
-        Ensure you have responded to all correctly. Retry the quiz until you have a 100%.
-      </p>
-        Review the tabs to check your anwsers if any are incorrect. Ask questions if you do not understand.</p>
-      
-      <h2>✨ Course Quiz ✨</h2>
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: Robert Rauschenberg's Estate art movement">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Which art movement does Robert Rauschenberg's "Estate" belong to?</div>
+                    <div class="flashcard-back">Postmodernism, featuring energetic brushstrokes and pop culture imagery.</div>
+                </div>
+            </div>
+        </section>
 
-<br><br> <!-- This adds space before the first question -->
+        <!-- Answer Key -->
+        <section class="answer-key" id="answer-key" aria-labelledby="answer-key-heading">
+            <h2 id="answer-key-heading">Answer Key</h2>
+            <dl>
+                <dt>Bernini's David:</dt>
+                <dd>The sculpture engages the viewer by breaking into the viewer's space.</dd>
+                
+                <dt>Caravaggio's Style:</dt>
+                <dd>Caravaggio created dramatic compositions that focus on realism.</dd>
+                
+                <dt>Lighting Techniques:</dt>
+                <dd>Tenebrism</dd>
+                
+                <dt>Poussin's Painting Traits:</dt>
+                <dd>The depiction of a narrative subject within an organized, idealized landscape</dd>
+                
+                <dt>Notre-Dame-du-Haut:</dt>
+                <dd>It has an upswept roof shape formed by using sprayed concrete.</dd>
+                
+                <dt>Georges Pompidou Center:</dt>
+                <dd>To make the interior space larger and to add an interesting design element.</dd>
+                
+                <dt>Modigliani's Head of a Woman:</dt>
+                <dd>The facial features are reduced to simple geometric shapes.</dd>
+                
+                <dt>Henry Moore's Mother and Child:</dt>
+                <dd>Moore uses abstracted, simplified, and exaggerated human forms.</dd>
+            </dl>
+        </section>
+    </main>
 
-      <div class="quiz"><br><br>
-      <pr></pr><br> 
-        <label>Enter responses below.<p></p><br>1. What is Mrs. Watts' email address?<input type="text" id="q1" placeholder="Enter email address" /></label>
-        <br><p></p><label>2. What is the full course name?<br><p></p><input type="text" id="q2" placeholder="Enter course name" /></label>
-        <br><p></p><label>3. Can you submit work by email? (yes/no)<br><p></p><input type="text" id="q3" placeholder="yes or no" /></label>
-        <br><p></p><label>4. Are AI-generated or digital images allowed in your artwork? (yes/no)<br><p></p><input type="text" id="q4" placeholder="yes or no" /></label>
-        <br><p></p><button onclick="gradeQuiz()" type="button">✨ Check My Answers</button><p></p>
-        <div id="quiz-feedback"></div>
-      </div>
-    </section>
-  </div>
-
-  <script>
-    // Create animated particles
-    function createParticles() {
-      const particles = document.getElementById('particles');
-      const particleCount = 50;
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 6 + 's';
-        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-        particles.appendChild(particle);
-      }
-    }
-
-    // Tab switching with smooth transitions
-    function showTab(tabId) {
-      // Remove active class from all nav items
-      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-      
-      // Add active class to clicked nav item
-      event.target.classList.add('active');
-      
-      // Hide all sections
-      document.querySelectorAll('section').forEach(sec => {
-        sec.classList.remove('active');
-      });
-      
-      // Show selected section with delay for smooth transition
-      setTimeout(() => {
-        document.getElementById(tabId).classList.add('active');
-      }, 100);
-    }
-
-    // Enhanced quiz functionality
-    function gradeQuiz() {
-      const answers = {
-        q1: 'bwatts@agoracyber.net',
-        q2: 'ART010A_FineArt',
-        q3: 'no',
-        q4: 'no'
-      };
-      
-      let score = 0;
-      let total = Object.keys(answers).length;
-      let feedback = '';
-      
-      // Grade each question
-      for (const [key, correctAnswer] of Object.entries(answers)) {
-        const userAnswer = document.getElementById(key).value.trim().toLowerCase();
-        const correctAnswerLower = correctAnswer.toLowerCase();
-        
-        if (userAnswer === correctAnswerLower || 
-            (key === 'q2' && userAnswer.includes('art010') && userAnswer.includes('fine art'))) {
-          score++;
+    <script>
+        // Multiple Choice Functionality
+        function checkAnswer(element, isCorrect) {
+            const responses = element.parentNode.querySelectorAll('.response');
+            
+            // Disable all responses
+            responses.forEach(response => {
+                response.disabled = true;
+                response.style.pointerEvents = 'none';
+                
+                if (response === element) {
+                    if (isCorrect) {
+                        response.classList.add('correct');
+                        response.innerHTML += '<span class="feedback"> ✓ Correct!</span>';
+                        createCelebration(response);
+                    } else {
+                        response.classList.add('incorrect');
+                        response.innerHTML += '<span class="feedback"> ✗ Incorrect</span>';
+                    }
+                } else if (!response.classList.contains('correct') && !response.classList.contains('incorrect')) {
+                    response.style.opacity = '0.6';
+                }
+            });
         }
-      }
-      
-      // Provide feedback
-      const feedbackDiv = document.getElementById('quiz-feedback');
-      feedbackDiv.classList.remove('show', 'success', 'partial');
-      
-      if (score === total) {
-        feedback = `🎉 Perfect! You scored ${score} out of ${total}! You're ready to create amazing art!`;
-        feedbackDiv.classList.add('success');
-      } else if (score >= total / 2) {
-        feedback = `🎨 Good effort! You scored ${score} out of ${total}. Review the syllabus and try again!`;
-        feedbackDiv.classList.add('partial');
-      } else {
-        feedback = `📚 You scored ${score} out of ${total}. Please review the syllabus more carefully and try again!`;
-        feedbackDiv.classList.add('partial');
-      }
-      
-      feedbackDiv.textContent = feedback;
-      feedbackDiv.classList.add('show');
-    }
 
-    // Print and save functionality for extension form
-    function printForm() {
-      const formData = getFormData();
-      const printWindow = window.open('', '_blank');
-      printWindow.document.write(`
-        <html>
-          <head>
-            <title>Extension Request Form</title>
-            <style>
-              body { font-family: Arial, sans-serif; padding: 20px; }
-              h2 { color: #333; }
-              .form-field { margin-bottom: 15px; }
-              .form-field label { font-weight: bold; }
-              .form-field div { margin-top: 5px; }
-            </style>
-          </head>
-          <body>
-            <h2>Student Extension Request Form</h2>
-            <div class="form-field">
-              <label>Date:</label>
-              <div>${formData.date}</div>
-            </div>
-            <div class="form-field">
-              <label>Student Name:</label>
-              <div>${formData.student}</div>
-            </div>
-            <div class="form-field">
-              <label>Assignment Name:</label>
-              <div>${formData.assignment}</div>
-            </div>
-            <div class="form-field">
-              <label>Reason for Request:</label>
-              <div>${formData.reason}</div>
-            </div>
-            <div class="form-field">
-              <label>Help Needed:</label>
-              <div>${formData.help ? 'Yes, I need help on this assignment' : 'No'}</div>
-            </div>
-            <div class="form-field">
-              <label>Can Complete Independently:</label>
-              <div>${formData.complete ? 'Yes, I can complete this assignment on my own' : 'No'}</div>
-            </div>
-            <div class="form-field">
-              <label>Planned Turn-in Date:</label>
-              <div>${formData.turnin}</div>
-            </div>
-            <div class="form-field">
-              <label>Digital Signature:</label>
-              <div>${formData.signature}</div>
-            </div>
-            <br><br>
-            <p><strong>Instructions:</strong> Please email this completed form to bwatts@agoracyber.net</p>
-          </body>
-        </html>
-      `);
-      printWindow.document.close();
-      printWindow.print();
-    }
+        // Flashcard Functionality
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+            
+            // Add some visual feedback
+            if (card.classList.contains('flipped')) {
+                createSparkles(card);
+            }
+        }
 
-    function saveAsWord() {
-      const formData = getFormData();
-      const content = `
-Student Extension Request Form
+        // Handle keyboard navigation for flashcards
+        function handleCardKeydown(event, card) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                flipCard(card);
+            }
+        }
 
-Date: ${formData.date}
-Student Name: ${formData.student}
-Assignment Name: ${formData.assignment}
-Reason for Request: ${formData.reason}
-Help Needed: ${formData.help ? 'Yes, I need help on this assignment' : 'No'}
-Can Complete Independently: ${formData.complete ? 'Yes, I can complete this assignment on my own' : 'No'}
-Planned Turn-in Date: ${formData.turnin}
-Digital Signature: ${formData.signature}
+        // Matching Game Functionality
+        let selectedMatch = null;
+        let matchedPairs = 0;
+        const totalPairs = 6;
 
-Instructions: Please email this completed form to bwatts@agoracyber.net
-      `;
-      
-      const blob = new Blob([content], { type: 'application/msword' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'Extension_Request_Form.doc';
-      link.click();
-      URL.revokeObjectURL(url);
-    }
+        function selectMatch(element, matchId) {
+            if (element.classList.contains('matched')) return;
 
-    function saveAsPDF() {
-      const formData = getFormData();
-      const content = `
-Student Extension Request Form
+            if (selectedMatch === null) {
+                // First selection
+                selectedMatch = { element, matchId };
+                element.classList.add('selected');
+                updateMatchResult('Item selected. Now choose its match.');
+            } else {
+                if (selectedMatch.element === element) {
+                    // Deselect if clicking the same element
+                    selectedMatch.element.classList.remove('selected');
+                    selectedMatch = null;
+                    updateMatchResult('Selection cleared. Choose an item to match.');
+                    return;
+                }
 
-Date: ${formData.date}
-Student Name: ${formData.student}
-Assignment Name: ${formData.assignment}
-Reason for Request: ${formData.reason}
-Help Needed: ${formData.help ? 'Yes, I need help on this assignment' : 'No'}
-Can Complete Independently: ${formData.complete ? 'Yes, I can complete this assignment on my own' : 'No'}
-Planned Turn-in Date: ${formData.turnin}
-Signature: ${formData.signature}
+                if (selectedMatch.matchId === matchId) {
+                    // Correct match
+                    selectedMatch.element.classList.remove('selected');
+                    selectedMatch.element.classList.add('matched');
+                    element.classList.add('matched');
+                    
+                    matchedPairs++;
+                    
+                    // Create celebration effect
+                    createCelebration(element);
+                    createCelebration(selectedMatch.element);
+                    
+                    if (matchedPairs === totalPairs) {
+                        updateMatchResult('🎉 Congratulations! All pairs matched correctly!');
+                        createConfetti();
+                    } else {
+                        updateMatchResult(`✓ Correct match! (${matchedPairs}/${totalPairs} completed)`);
+                    }
+                } else {
+                    // Incorrect match
+                    element.classList.add('selected');
+                    updateMatchResult('✗ Not a match. Try again!');
+                    
+                    setTimeout(() => {
+                        selectedMatch.element.classList.remove('selected');
+                        element.classList.remove('selected');
+                        updateMatchResult('Choose an item to match.');
+                    }, 1500);
+                }
+                selectedMatch = null;
+            }
+        }
 
-Instructions: Please email this completed form to bwatts@agoracyber.net
-      `;
-      
-      const blob = new Blob([content], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'Extension_Request_Form.txt';
-      link.click();
-      URL.revokeObjectURL(url);
-    }
+        function updateMatchResult(message) {
+            const resultElement = document.getElementById('match-result');
+            resultElement.textContent = message;
+        }
 
-    function getFormData() {
-      return {
-        date: document.getElementById('ext-date').value,
-        student: document.getElementById('ext-student').value,
-        assignment: document.getElementById('ext-assignment').value,
-        reason: document.getElementById('ext-reason').value,
-        help: document.getElementById('ext-help').checked,
-        complete: document.getElementById('ext-complete').checked,
-        turnin: document.getElementById('ext-turnin').value,
-        signature: document.getElementById('ext-signature').value
-      };
-    }
+        // Visual Effects
+        function createCelebration(element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    createSparkle(centerX, centerY);
+                }, i * 100);
+            }
+        }
 
-    // Add loading animations
-    window.addEventListener('load', function() {
-      createParticles();
-      
-      // Stagger the loading animations
-      setTimeout(() => {
-        document.querySelectorAll('.loading').forEach((el, index) => {
-          setTimeout(() => {
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0)';
-          }, index * 200);
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'glitter';
+            sparkle.style.left = (x + (Math.random() - 0.5) * 100) + 'px';
+            sparkle.style.top = (y + (Math.random() - 0.5) * 100) + 'px';
+            sparkle.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            
+            document.getElementById('glitter-container').appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 3000);
+        }
+
+        function createSparkles(element) {
+            const rect = element.getBoundingClientRect();
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    createSparkle(
+                        rect.left + Math.random() * rect.width,
+                        rect.top + Math.random() * rect.height
+                    );
+                }, i * 200);
+            }
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createSparkle(
+                        Math.random() * window.innerWidth,
+                        Math.random() * window.innerHeight
+                    );
+                }, i * 100);
+            }
+        }
+
+        // Continuous Glitter Animation
+        function createGlitter() {
+            const glitter = document.createElement('div');
+            glitter.className = 'glitter';
+            
+            const colors = ['#6c63ff', '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            glitter.style.left = Math.random() * window.innerWidth + 'px';
+            glitter.style.bottom = '0px';
+            glitter.style.backgroundColor = randomColor;
+            glitter.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            
+            document.getElementById('glitter-container').appendChild(glitter);
+            
+            setTimeout(() => {
+                if (glitter.parentNode) {
+                    glitter.remove();
+                }
+            }, 5000);
+        }
+
+        // Mouse Trail Effect
+        let mouseTrailEnabled = true;
+
+        function createMouseTrail(e) {
+            if (!mouseTrailEnabled) return;
+            
+            const trail = document.createElement('div');
+            trail.className = 'trail-dot';
+            
+            const colors = ['#6c63ff', '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            trail.style.background = randomColor;
+            
+            document.body.appendChild(trail);
+            
+            setTimeout(() => {
+                if (trail.parentNode) {
+                    trail.remove();
+                }
+            }, 1000);
+        }
+
+        // Smooth scrolling for navigation
+        function smoothScroll(target) {
+            document.querySelector(target).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start glitter animation
+            setInterval(createGlitter, 500);
+            
+            // Add mouse trail
+            document.addEventListener('mousemove', createMouseTrail);
+            
+            // Add smooth scrolling to navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    smoothScroll(this.getAttribute('href'));
+                });
+            });
+            
+            // Add keyboard navigation for responses
+            document.querySelectorAll('.response').forEach(response => {
+                response.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+            
+            // Initialize match game message
+            updateMatchResult('Choose an item to match.');
+            
+            console.log('🎨 Art History Study Guide loaded successfully!');
         });
-      }, 100);
-    });
 
-    // Add smooth scrolling and other enhancements
-    document.addEventListener('DOMContentLoaded', function() {
-      // Add hover effects to images
-      document.querySelectorAll('img').forEach(img => {
-        img.addEventListener('mouseenter', function() {
-          this.style.filter = 'brightness(1.1) saturate(1.2)';
-        });
-        
-        img.addEventListener('mouseleave', function() {
-          this.style.filter = 'brightness(1) saturate(1)';
-        });
-      });
-    });
-  </script>
+        // Performance optimization: Reduce effects on slower devices
+        if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
+            mouseTrailEnabled = false;
+        }
+
+        // Accessibility: Respect user's motion preferences
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            mouseTrailEnabled = false;
+            // Reduce glitter frequency
+            setInterval(createGlitter, 2000);
+        }
+    </script>
 </body>
 </html>
