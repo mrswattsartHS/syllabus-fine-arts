@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Baroque & Beyond - Interactive Study Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <style>
+        /* CSS Reset and Base Styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary-color: #06d6a0;
+            --accent-color: #f72585;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --light-bg: #faf7ff;
+            --white: #ffffff;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+            --border-radius: 16px;
+            --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 20px rgba(139, 92, 246, 0.2);
+            --shadow-heavy: 0 8px 30px rgba(139, 92, 246, 0.3);
+            --transition: all 0.3s ease;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #e0e7ff 50%, #fce7f3 100%);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            margin: 2rem 0;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--primary-dark);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: var(--primary-dark);
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem 4rem;
+        }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: var(--shadow-medium);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        @media print {
+            .print-button, #glitter-container, .trail-dot {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+            }
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a:focus {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        #glitter-container {
+            position: fixed;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .glitter {
+            position: absolute;
+            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #fff, rgba(255, 255, 255, 0));
+            box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.8);
+            animation: glitterRise linear forwards;
+            opacity: 0;
+        }
+
+        @keyframes glitterRise {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-120px) scale(0.2) rotate(360deg);
+            }
+        }
+
+        .question-block {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .question-block:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-heavy);
+            transform: translateY(-2px);
+        }
+
+        .question-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .artwork {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.05), rgba(6, 214, 160, 0.05));
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .responses {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .response {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            text-align: left;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .response:hover:not(.correct):not(.incorrect) {
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(247, 37, 133, 0.1));
+            border-color: var(--primary-color);
+            transform: translateX(4px);
+        }
+
+        .response:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        .response.correct {
+            background: linear-gradient(45deg, #d1fae5, #a7f3d0) !important;
+            border-color: var(--success-color) !important;
+            color: #065f46;
+            cursor: default;
+        }
+
+        .response.incorrect {
+            background: linear-gradient(45deg, #fee2e2, #fecaca) !important;
+            border-color: var(--error-color) !important;
+            color: #991b1b;
+            cursor: default;
+        }
+
+        .feedback {
+            margin-left: 10px;
+            font-weight: 700;
+        }
+
+        .matching-block {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-medium);
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 900px;
+        }
+
+        .match-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .match-list {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(6, 214, 160, 0.05));
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .match-list h3 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .match-item {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            text-align: left;
+            width: 100%;
+        }
+
+        .match-item:hover:not(.matched) {
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(247, 37, 133, 0.1));
+            border-color: var(--primary-color);
+            transform: translateX(3px);
+        }
+
+        .match-item.selected {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border-color: var(--primary-dark);
+        }
+
+        .match-item.matched {
+            background: linear-gradient(45deg, #d1fae5, #a7f3d0);
+            border-color: var(--success-color);
+            color: #065f46;
+            cursor: default;
+        }
+
+        .match-result {
+            margin-top: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            min-height: 30px;
+            font-size: 1.1rem;
+        }
+
+        #flashcards {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .instructions {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .flashcard {
+            cursor: pointer;
+            perspective: 1100px;
+            max-width: 600px;
+            margin: 2rem auto;
+            height: 150px;
+        }
+
+        .flashcard:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 4px;
+            border-radius: var(--border-radius);
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            box-shadow: var(--shadow-medium);
+            border-radius: var(--border-radius);
+            border: 2px solid transparent;
+        }
+
+        .flashcard:hover .flashcard-inner {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+        }
+
+        .flashcard-back {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(224, 231, 255, 0.8));
+            color: var(--text-dark);
+            transform: rotateY(180deg);
+            border: 2px solid var(--secondary-color);
+        }
+
+        .answer-key {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.1));
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-medium);
+            max-width: 800px;
+            margin: 3rem auto;
+            border: 2px solid var(--warning-color);
+        }
+
+        .answer-key h2 {
+            color: #92400e;
+            margin-bottom: 1.5rem;
+        }
+
+        .answer-key dl {
+            margin: 0;
+        }
+
+        .answer-key dt {
+            font-weight: 700;
+            color: #78350f;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .answer-key dd {
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+            color: #78350f;
+        }
+
+        .trail-dot {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            width: 12px;
+            height: 12px;
+            opacity: 0.8;
+            animation: sparkleTrail 1.5s forwards;
+            z-index: 999;
+            box-shadow: 0 0 20px 5px currentColor;
+        }
+
+        @keyframes sparkleTrail {
+            0% {
+                opacity: 0.8;
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.3) rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .match-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            .question-block,
+            .matching-block {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .flashcard {
+                height: 120px;
+                margin: 1.5rem auto;
+            }
+            
+            .flashcard-front,
+            .flashcard-back {
+                font-size: 1rem;
+            }
+
+            .print-button {
+                top: 10px;
+                right: 10px;
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <button class="print-button" onclick="window.print()">🖨️ Print Study Guide</button>
+    <div id="glitter-container" aria-hidden="true"></div>
+
+    <header>
+        <h1 id="main-content">Baroque & Beyond: Interactive Art History Study Guide</h1>
+        <nav aria-label="Study sections">
+            <ul class="nav-menu">
+                <li><a href="#multiple-choice">Multiple Choice</a></li>
+                <li><a href="#matching-game">Matching Game</a></li>
+                <li><a href="#flashcards">Flashcards</a></li>
+                <li><a href="#answer-key">Answer Key</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="multiple-choice" aria-labelledby="mc-heading">
+            <h2 id="mc-heading">Multiple Choice Questions</h2>
+            
+            <article class="question-block" data-question="1">
+                <h3>Bernini's David</h3>
+                <div class="question-title">What Italian Baroque characteristic does David by Gianlorenzo Bernini exhibit?</div>
+                <div class="artwork">David, sculpture by Gian Lorenzo Bernini, showing David in the act of throwing stone</div>
+                <div class="responses" role="radiogroup" aria-labelledby="q1-title">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">The sculpture engages the viewer by breaking into the viewer's space.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The sculpture makes a complete departure from Classical and Renaissance sculpture.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The sculpture's main purpose was to idealize the beauty of the human form.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The sculpture's pose and facial features are calm and reserved.</button>
+                </div>
+            </article>
+
+            <article class="question-block" data-question="2">
+                <h3>Caravaggio's Style</h3>
+                <div class="question-title">Which is an accurate statement about Italian Baroque artist Caravaggio's approach to painting?</div>
+                <div class="artwork">Calling of Saint Matthew by Michelangelo Merisi da Caravaggio</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">Caravaggio created dramatic compositions that focus on realism.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Caravaggio focused on depicting narrative historical themes.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Caravaggio painted religious scenes with idealized figures.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Caravaggio used foreshortening to depict a sense of flattened space.</button>
+                </div>
+            </article>
+
+            <article class="question-block" data-question="3">
+                <h3>Lighting Techniques</h3>
+                <div class="question-title">What innovative and extreme lighting technique did Italian Baroque artist Caravaggio use in his paintings?</div>
+                <div class="artwork">The Conversion of Saint Paul by Caravaggio</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">Tenebrism</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Contrapposto</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Atmospheric perspective</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Foreshortening</button>
+                </div>
+            </article>
+
+            <article class="question-block" data-question="4">
+                <h3>Poussin's Painting Traits</h3>
+                <div class="question-title">Which phrase best describes a characteristic of the paintings of French Baroque artist Nicolas Poussin?</div>
+                <div class="artwork">Landscape with the Burial of Phocion by Nicolas Poussin</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">The depiction of a narrative subject within an organized, idealized landscape</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The depiction of figures and landscapes from the artist's imagination</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The rejection of Classical Greek and Roman figurative and landscape ideals</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The nearly photographic recording of figures within a landscape</button>
+                </div>
+            </article>
+
+            <article class="question-block" data-question="5">
+                <h3>Notre-Dame-du-Haut by Le Corbusier</h3>
+                <div class="question-title">How does Notre-Dame-du-Haut by Le Corbusier exhibit sculptural qualities?</div>
+                <div class="artwork">Chapel of Notre Dame du Haut in Ronchamp, Franco-Swiss architecture by Le Corbusier</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">It incorporates Le Corbusier's sculptures into niches in the chapel walls.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">It is designed with sinuous rock walls to surround the chapel.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">It uses right angles throughout the structure.</button>
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">It has an upswept roof shape formed by using sprayed concrete.</button>
+                </div>
+            </article>
+
+            <article class="question-block" data-question="6">
+                <h3>Georges Pompidou Center</h3>
+                <div class="question-title">Why did Modernist architects Richard Rogers and Renzo Piano place the escalator outside the Georges Pompidou National Center of Art and Culture?</div>
+                <div class="artwork">Georges Pompidou Center, cultural center in Paris, France</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">To make the interior space larger and to add an interesting design element.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">To help save on heating and cooling costs.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">To move people into and out of the building more quickly.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">To make the escalator easier to service.</button>
+                </div>
+            </article>
+
+            <article class="question-block" data-question="7">
+                <h3>Modigliani's Head of a Woman</h3>
+                <div class="question-title">Which of the following is a characteristic of Modernist sculptor Amedeo Modigliani's Head of a Woman?</div>
+                <div class="artwork">Head of a Woman, sculpture by Amedeo Modigliani</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">The facial features are reduced to simple geometric shapes.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The pyramid configuration organizes the composition.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The detail markings on the head symbolize African folklore.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">The strong diagonals add dimension and movement to the sculpture.</button>
+                </div>
+            </article>
+
+            <article class="question-block" data-question="8">
+                <h3>Henry Moore's Mother and Child</h3>
+                <div class="question-title">What Modernist convention is reflected in Henry Moore's sculpture Mother and Child?</div>
+                <div class="artwork">Mother and Child, sculpture by Henry Moore</div>
+                <div class="responses" role="radiogroup">
+                    <button class="response" data-correct="true" onclick="checkAnswer(this, true)">Moore uses abstracted, simplified, and exaggerated human forms.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Moore uses realistic proportions and detailed surface textures.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Moore incorporates Classical Greek and Roman ideals of beauty.</button>
+                    <button class="response" data-correct="false" onclick="checkAnswer(this, false)">Moore creates a sense of movement through contrapposto.</button>
+                </div>
+            </article>
+        </section>
+
+        <section id="matching-game" class="matching-block" aria-labelledby="matching-heading">
+            <h2 id="matching-heading">Matching Game</h2>
+            <p>Click one item from the left column, then click the matching description on the right.</p>
+            <div class="match-container">
+                <div class="match-list" id="match-left">
+                    <h3>Artist/Term</h3>
+                    <button class="match-item" data-match="bernini" onclick="selectMatch(this, 'bernini')">Bernini</button>
+                    <button class="match-item" data-match="caravaggio" onclick="selectMatch(this, 'caravaggio')">Caravaggio</button>
+                    <button class="match-item" data-match="tenebrism" onclick="selectMatch(this, 'tenebrism')">Tenebrism</button>
+                    <button class="match-item" data-match="moore" onclick="selectMatch(this, 'moore')">Henry Moore</button>
+                    <button class="match-item" data-match="modigliani" onclick="selectMatch(this, 'modigliani')">Modigliani</button>
+                    <button class="match-item" data-match="value" onclick="selectMatch(this, 'value')">Value (Element of Art)</button>
+                </div>
+                <div class="match-list" id="match-right">
+                    <h3>Description</h3>
+                    <button class="match-item" data-match="bernini" onclick="selectMatch(this, 'bernini')">
+                        Baroque sculptor famous for dynamic, engaging sculptures like David.
+                    </button>
+                    <button class="match-item" data-match="tenebrism" onclick="selectMatch(this, 'tenebrism')">
+                        Extreme contrast between light and dark in painting.
+                    </button>
+                    <button class="match-item" data-match="value" onclick="selectMatch(this, 'value')">
+                        How light or dark a color or object appears in art.
+                    </button>
+                    <button class="match-item" data-match="caravaggio" onclick="selectMatch(this, 'caravaggio')">
+                        Painter known for realistic, dramatic lighting and compositions.
+                    </button>
+                    <button class="match-item" data-match="modigliani" onclick="selectMatch(this, 'modigliani')">
+                        Sculptor known for abstracting facial features into geometric shapes.
+                    </button>
+                    <button class="match-item" data-match="moore" onclick="selectMatch(this, 'moore')">
+                        Modernist sculptor who used simplified, abstracted forms, especially in mother and child themes.
+                    </button>
+                </div>
+            </div>
+            <div class="match-result" id="match-result" aria-live="polite"></div>
+        </section>
+
+        <section id="flashcards" aria-labelledby="flashcards-heading">
+            <h2 id="flashcards-heading">Flashcards Review</h2>
+            <p class="instructions">Click on each card to flip it and reveal the answer.</p>
+            
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: What is Tenebrism?">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">What is Tenebrism?</div>
+                    <div class="flashcard-back">
+                        A dramatic lighting technique using strong contrast between light and dark.
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: Who created the sculpture of David in the Baroque period?">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Who created the sculpture of David in the Baroque period?</div>
+                    <div class="flashcard-back">Gianlorenzo Bernini</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: Which element of art deals with lightness or darkness?">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Which element of art deals with the lightness or darkness of a color?</div>
+                    <div class="flashcard-back">Value</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: What innovative lighting technique is Caravaggio known for?">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">What innovative lighting technique is Caravaggio known for?</div>
+                    <div class="flashcard-back">Tenebrism, the use of extreme contrasts between light and shadow.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: Henry Moore's work characteristics">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">Name one key characteristic of Modernist sculptor Henry Moore's work.</div>
+                    <div class="flashcard-back">Use of abstracted, simplified, and exaggerated human forms.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: Baroque art characteristics">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">What are two key characteristics of Baroque art?</div>
+                    <div class="flashcard-back">Dramatic lighting effects and emotional intensity that engages the viewer.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: Modernist art movement">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">What defines Modernist sculpture?</div>
+                    <div class="flashcard-back">Abstract, simplified forms that break away from traditional realistic representation.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="flipCard(this)" onkeydown="handleCardKeydown(event, this)" tabindex="0" role="button" aria-label="Flashcard: Le Corbusier architecture">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">How does Le Corbusier's Notre-Dame-du-Haut show sculptural qualities?</div>
+                    <div class="flashcard-back">Through its upswept roof shape formed using sprayed concrete.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="answer-key" id="answer-key" aria-labelledby="answer-key-heading">
+            <h2 id="answer-key-heading">Answer Key</h2>
+            <dl>
+                <dt>Bernini's David:</dt>
+                <dd>The sculpture engages the viewer by breaking into the viewer's space.</dd>
+                
+                <dt>Caravaggio's Style:</dt>
+                <dd>Caravaggio created dramatic compositions that focus on realism.</dd>
+                
+                <dt>Lighting Techniques:</dt>
+                <dd>Tenebrism</dd>
+                
+                <dt>Poussin's Painting Traits:</dt>
+                <dd>The depiction of a narrative subject within an organized, idealized landscape</dd>
+                
+                <dt>Notre-Dame-du-Haut:</dt>
+                <dd>It has an upswept roof shape formed by using sprayed concrete.</dd>
+                
+                <dt>Georges Pompidou Center:</dt>
+                <dd>To make the interior space larger and to add an interesting design element.</dd>
+                
+                <dt>Modigliani's Head of a Woman:</dt>
+                <dd>The facial features are reduced to simple geometric shapes.</dd>
+                
+                <dt>Henry Moore's Mother and Child:</dt>
+                <dd>Moore uses abstracted, simplified, and exaggerated human forms.</dd>
+            </dl>
+        </section>
+    </main>
+
+    <script>
+        function checkAnswer(element, isCorrect) {
+            const responses = element.parentNode.querySelectorAll('.response');
+            
+            responses.forEach(response => {
+                response.disabled = true;
+                response.style.pointerEvents = 'none';
+                
+                if (response === element) {
+                    if (isCorrect) {
+                        response.classList.add('correct');
+                        response.innerHTML += '<span class="feedback"> ✓ Correct!</span>';
+                        createCelebration(response);
+                    } else {
+                        response.classList.add('incorrect');
+                        response.innerHTML += '<span class="feedback"> ✗ Incorrect</span>';
+                    }
+                } else if (!response.classList.contains('correct') && !response.classList.contains('incorrect')) {
+                    response.style.opacity = '0.6';
+                }
+            });
+        }
+
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+            
+            if (card.classList.contains('flipped')) {
+                createSparkles(card);
+            }
+        }
+
+        function handleCardKeydown(event, card) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                flipCard(card);
+            }
+        }
+
+        let selectedMatch = null;
+        let matchedPairs = 0;
+        const totalPairs = 6;
+
+        function selectMatch(element, matchId) {
+            if (element.classList.contains('matched')) return;
+
+            if (selectedMatch === null) {
+                selectedMatch = { element, matchId };
+                element.classList.add('selected');
+                updateMatchResult('Item selected. Now choose its match.');
+            } else {
+                if (selectedMatch.element === element) {
+                    selectedMatch.element.classList.remove('selected');
+                    selectedMatch = null;
+                    updateMatchResult('Selection cleared. Choose an item to match.');
+                    return;
+                }
+
+                if (selectedMatch.matchId === matchId) {
+                    selectedMatch.element.classList.remove('selected');
+                    selectedMatch.element.classList.add('matched');
+                    element.classList.add('matched');
+                    
+                    matchedPairs++;
+                    
+                    createCelebration(element);
+                    createCelebration(selectedMatch.element);
+                    
+                    if (matchedPairs === totalPairs) {
+                        updateMatchResult('🎉 Congratulations! All pairs matched correctly!');
+                        createConfetti();
+                    } else {
+                        updateMatchResult(`✓ Correct match! (${matchedPairs}/${totalPairs} completed)`);
+                    }
+                } else {
+                    element.classList.add('selected');
+                    updateMatchResult('✗ Not a match. Try again!');
+                    
+                    setTimeout(() => {
+                        selectedMatch.element.classList.remove('selected');
+                        element.classList.remove('selected');
+                        updateMatchResult('Choose an item to match.');
+                    }, 1500);
+                }
+                selectedMatch = null;
+            }
+        }
+
+        function updateMatchResult(message) {
+            const resultElement = document.getElementById('match-result');
+            resultElement.textContent = message;
+        }
+
+        function createCelebration(element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    createSparkle(centerX, centerY);
+                }, i * 100);
+            }
+        }
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'glitter';
+            sparkle.style.left = (x + (Math.random() - 0.5) * 100) + 'px';
+            sparkle.style.top = (y + (Math.random() - 0.5) * 100) + 'px';
+            sparkle.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            
+            document.getElementById('glitter-container').appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 3000);
+        }
+
+        function createSparkles(element) {
+            const rect = element.getBoundingClientRect();
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    createSparkle(
+                        rect.left + Math.random() * rect.width,
+                        rect.top + Math.random() * rect.height
+                    );
+                }, i * 200);
+            }
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createSparkle(
+                        Math.random() * window.innerWidth,
+                        Math.random() * window.innerHeight
+                    );
+                }, i * 100);
+            }
+        }
+
+        function createGlitter() {
+            const glitter = document.createElement('div');
+            glitter.className = 'glitter';
+            
+            const colors = ['#6c63ff', '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            glitter.style.left = Math.random() * window.innerWidth + 'px';
+            glitter.style.bottom = '0px';
+            glitter.style.backgroundColor = randomColor;
+            glitter.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            
+            document.getElementById('glitter-container').appendChild(glitter);
+            
+            setTimeout(() => {
+                if (glitter.parentNode) {
+                    glitter.remove();
+                }
+            }, 5000);
+        }
+
+        let mouseTrailEnabled = true;
+
+        function createMouseTrail(e) {
+            if (!mouseTrailEnabled) return;
+            
+            const trail = document.createElement('div');
+            trail.className = 'trail-dot';
+            
+            const colors = ['#6c63ff', '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            trail.style.background = randomColor;
+            
+            document.body.appendChild(trail);
+            
+            setTimeout(() => {
+                if (trail.parentNode) {
+                    trail.remove();
+                }
+            }, 1000);
+        }
+
+        function smoothScroll(target) {
+            document.querySelector(target).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setInterval(createGlitter, 500);
+            
+            document.addEventListener('mousemove', createMouseTrail);
+            
+            document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    smoothScroll(this.getAttribute('href'));
+                });
+            });
+            
+            document.querySelectorAll('.response').forEach(response => {
+                response.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+            
+            updateMatchResult('Choose an item to match.');
+            
+            console.log('🎨 Art History Study Guide loaded successfully!');
+        });
+
+        if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
+            mouseTrailEnabled = false;
+        }
+
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            mouseTrailEnabled = false;
+        }
+    </script>
+</body>
+</html>
